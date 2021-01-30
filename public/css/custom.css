@@ -1,0 +1,32 @@
+
+
+
+.ui-card-md {
+    width: var(--ui-card-md-w);
+}
+
+
+
+@media (min-width: 512px) {
+    :root {
+        --ui-card-md-w: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    :root {
+        --ui-card-md-w: 24em;
+    }
+}
+
+@media (min-width: 1200px) {
+    :root {
+        --ui-card-md-w: 26em;
+    }
+}
+
+@media (min-width: 1400px) {
+    :root {
+        --ui-card-md-w: 26em;
+    }
+}

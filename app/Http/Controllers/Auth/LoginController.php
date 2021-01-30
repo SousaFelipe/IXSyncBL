@@ -27,7 +27,10 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = [
+            'email'     => $request['username'],
+            'password'  => $request['current-password']
+        ];
 
         if (Auth::attempt($credentials)) {
             $user = auth()->user();
