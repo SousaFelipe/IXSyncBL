@@ -3,7 +3,10 @@
 
 :root {
 
-    --ui-color-light: #F5F5F5;
+    --ui-color-light:           #F5F5F5;
+    --ui-color-text-primary:    #263238;
+    --ui-color-text-secondary:  #607D8B;
+    --ui-color-text-disabled:   #90A4AE;
 
 }
 

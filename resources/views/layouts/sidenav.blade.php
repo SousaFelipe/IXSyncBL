@@ -12,7 +12,7 @@
 
     <body>
 
-        <nav id="sidenav" class="sidenav bg-light border-end">
+        <nav id="sidenav" class="sidenav bg-light border-end d-flex flex-column">
 
             <nav class="navbar navbar-light p-3">
                 <div class="container-fluid">
@@ -28,29 +28,23 @@
                 </div>
             </nav>
 
-            <div class="d-flex justify-content-center align-items-center p-3">
-                
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
+            <div class="d-flex flex-column justify-content-center align-items-stretch flex-grow-1 p-3">
+
+                @yield('navcontent')
 
             </div>
 
         </nav>
 
-        <div class="container-fluid">
+        <div class="container-fluid d-flex flex-column vh-100">
             @yield('content')
         </div>
 
         @include('includes.scripts')
 
         <script src="{{ asset('js/sidenav.js') }}"></script>
+
+        @yield('scripts')
 
     </body>
 </html>
