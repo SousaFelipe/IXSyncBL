@@ -1,0 +1,39 @@
+
+
+
+:root {
+
+    --ui-color-light: #F5F5F5;
+
+}
+
+
+/*
+ * CORES
+ */
+
+
+.ui-light {
+    background-color: var(--ui-color-light) !important;
+}
+
+
+
+/*
+ * ASSETS
+ */
+
+img[class*="avatar"] {
+    width:          42px;
+    height:         42px;
+    border-radius:  50%;
+}
+
+
+
+/*
+ * MISSELANIOUS
+ */
+.clickable {
+    cursor: pointer;
+}

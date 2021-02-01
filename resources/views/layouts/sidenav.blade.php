@@ -1,19 +1,56 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>IXSync: Login</title>
-        <link href="https://fonts.gstatic.com" rel="preconnect">
-        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    </head>
+
+
+    @section('styles')
+        <link rel="stylesheet" href="{{ asset('css/custom/sidenav.css') }}">
+    @endsection
+
+
+    @include('includes.head')
+
+
     <body>
 
-        @yield('content')
+        <nav id="sidenav" class="sidenav bg-light border-end">
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+            <nav class="navbar navbar-light p-3">
+                <div class="container-fluid">
+                    <div class="row align-content-center">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                            <button class="btn btn-light" onclick="sidenav.toggle()">
+                                <span class="text-secondary"><i class="fas fa-times"></i></span>
+                            </button>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 text-end">
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="d-flex justify-content-center align-items-center p-3">
+                
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div class="container-fluid">
+            @yield('content')
+        </div>
+
+        @include('includes.scripts')
+
+        <script src="{{ asset('js/sidenav.js') }}"></script>
+
     </body>
 </html>

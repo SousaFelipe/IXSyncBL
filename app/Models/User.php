@@ -60,8 +60,8 @@ class User extends Authenticatable
 
     public function avatar()
     {
-        $user    = url('images/avatars/' . $this->code . '.png');
-        $default = url('images/avatars/default.png');
+        $user    = ('images/avatars/' . $this->code . '.png');
+        $default = ('images/avatars/default.png');
 
         return url(file_exists(public_path($user)) ? $user : $default);
     }
@@ -72,6 +72,15 @@ class User extends Authenticatable
     {
         $name = explode(' ', $this->name);
         return $name[0];
+    }
+
+
+    public function firstAndLastName()
+    {
+        $first = $this->firstName();
+        $expLast = explode(' ', $this->name);
+        $last = $expLast[ count($expLast) - 1 ];
+        return ($first . ' ' . $last);
     }
 
 
