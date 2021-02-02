@@ -3,20 +3,25 @@
 
 :root {
 
-    --ui-color-light:           #F5F5F5;
     --ui-color-text-primary:    #263238;
     --ui-color-text-secondary:  #607D8B;
     --ui-color-text-disabled:   #90A4AE;
+    --ui-color-border:          #CFD8DC;
+    --ui-color-light:           #F5F5F5;
 
 }
+
 
 
 /*
  * CORES
  */
 
-
 .ui-light {
+    background-color: var(--ui-color-light) !important;
+}
+
+.hover-light:hover {
     background-color: var(--ui-color-light) !important;
 }
 
@@ -37,6 +42,18 @@ img[class*="avatar"] {
 /*
  * MISSELANIOUS
  */
+
 .clickable {
     cursor: pointer;
+}
+
+.override-hidden {
+    overflow:       hidden !important;
+    white-space:    nowrap !important;
+}
+
+.override-pills {
+    overflow:       hidden !important;
+    white-space:    nowrap !important;
+    text-overflow:  ellipsis !important;
 }

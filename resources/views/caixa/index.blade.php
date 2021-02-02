@@ -83,13 +83,15 @@
             </div>
         </div>
 
-        <div class="col-12 col-sm-8 col-lg-4 align-self-center">
-            <div class="search">
-                <span class="search-icon">
-                    <i class="fas fa-search"></i>
-                </span>
-                <input type="text" id="search" class="search-control search-control-lg" placeholder="Buscar CPF ou nome do cliente..." aria-label="Busca" oncha ="searchForClients()">
-                <div id="searchResult">
+        <div class="col-12 col-sm-9 col-lg-5 align-self-center">
+            <div class="search-group override-hidden">
+                <div class="search">
+                    <span id="search-icon" class="search-icon d-flex justify-content-center align-items-center">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" id="search" class="search-control search-control-lg" placeholder="Buscar CPF ou nome do cliente..." aria-label="Busca" oncha ="searchForClients()">
+                </div>
+                <div id="searchResult" class="d-flex flex-column">
 
                 </div>
             </div>
@@ -99,6 +101,24 @@
 
         </div>
 
+    </div>
+
+    <div class="modal fade align-items-center" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clienteModalLabel">New message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- LOGOUT FORM -->
