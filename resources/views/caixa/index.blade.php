@@ -83,7 +83,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-sm-9 col-lg-5 align-self-center">
+        <div class="col-12 col-sm-9 col-lg-4 align-self-center">
             <div class="search-group override-hidden">
                 <div class="search">
                     <span id="search-icon" class="search-icon d-flex justify-content-center align-items-center">
@@ -97,25 +97,19 @@
             </div>
         </div>
 
-        <div>
-
-        </div>
-
     </div>
 
     <div class="modal fade align-items-center" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="clienteModalLabel">New message</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h6 class="modal-title"> FELIPE DE SOUSA DO CARMO </h6>
                 </div>
                 <div class="modal-body">
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>

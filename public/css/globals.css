@@ -57,3 +57,13 @@ img[class*="avatar"] {
     white-space:    nowrap !important;
     text-overflow:  ellipsis !important;
 }
+
+
+
+/*
+ * TEXTO
+ */
+
+.fs-7 {
+    font-size: 0.8rem;
+}

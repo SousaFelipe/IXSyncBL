@@ -48,9 +48,9 @@ function populateResult(data) {
                     <div class="col-auto">
                         <span class="text-${ data[i].ativo ? `success` : `danger` }"> <i class="fas fa-user"></i> </span>
                     </div>
-                    <div class="col-4 override-pills"> ${ data[i].razao } </div>
-                    <div class="col-2 override-pills"> ${ data[i].endereco } </div>
-                    <div class="col-5 override-pills"> ${ data[i].complemento } </div>
+                    <div class="col-4 override-pills fs-7"> ${ data[i].razao } </div>
+                    <div class="col-2 override-pills fs-7"> ${ data[i].endereco } </div>
+                    <div class="col-5 override-pills fs-7"> ${ data[i].complemento } </div>
                 </div>
             `)
         }

@@ -27,8 +27,7 @@ class CreateFnAreceberBaixasTable extends Migration
             $table->double('valor_total_recebido', 8, 2);
             $table->enum('tipo_recebimento', ['D', 'H', 'C', 'CD', 'DP']);
             $table->bigInteger('filial_id');
-            $table->bigInteger('conta_', 8, 2);
-            $table->bigInteger('conta_', 8, 2);
+            $table->bigInteger('conta_');
             $table->boolean('upload')->default(false);
             $table->boolean('uploaded')->default(false);
             $table->date('created_at');
