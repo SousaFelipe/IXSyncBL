@@ -27,6 +27,15 @@
 
 
 
+.ui-text-primary {
+    color: var(--ui-color-text-primary);
+}
+
+.ui-text-secondary {
+    color: var(--ui-color-text-secondary);
+}
+
+
 /*
  * ASSETS
  */

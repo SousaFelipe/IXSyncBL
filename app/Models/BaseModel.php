@@ -12,7 +12,7 @@ class BaseModel extends Model
     protected $srcname;
 
     private $ixc = null;
-    private $where = null;
+    private $when = null;
 
 
 
@@ -24,7 +24,7 @@ class BaseModel extends Model
         $fullsortname = $this->srcname . '.' . (($sortname == '') ? 'id' : $sortname);
         $fulloper     = ($oper == '')  ? '=' : $oper;
 
-        $this->where = array(
+        $this->when = array(
             'qtype'     => $fullqtype,
             'query'     => $query,
             'oper'      => $fulloper,
@@ -41,7 +41,7 @@ class BaseModel extends Model
 
     public function getRecords()
     {
-        $this->ixc->get($this->srcname, $this->where);
+        $this->ixc->get($this->srcname, $this->when);
         $data = $this->ixc->getRespostaConteudo(true);
         return isset($data['registros']) ? $data['registros'] : [];
     }
@@ -54,7 +54,7 @@ class BaseModel extends Model
             return [];
         }
 
-        $this->ixc->post('fn_areceber_baixas', $post);
+        $this->ixc->post($this->srcname, $post);
         $data = $api->getRespostaConteudo(true);
         return isset($data['registros']) ? $data['registros'] : [];
     }

@@ -20,6 +20,7 @@ class CreateAlertasTable extends Migration
             $table->bigInteger('usuario');
             $table->bigInteger('cliente');
             $table->enum('tipo', ['OP', 'FN', 'GR']);
+            $table->enum('prioridade', ['A', 'B']);
             $table->string('mensagem', 191);
             $table->date('created_at');
         });

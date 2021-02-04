@@ -4,6 +4,8 @@
 @section('title', auth()->user()->firstName())
 
 
+
+<!-- <<SIDENAV CONTENT -->
 @section('navcontent')
 
     <div class="card text-white bg-primary mb-3">
@@ -37,8 +39,11 @@
     </div>
 
 @endsection
+<!-- SIDENAV CONTENT>> -->
 
 
+
+<!-- <<MAIN CONTENT -->
 @section('content')
 
     <div class="row align-self-stretch">
@@ -102,26 +107,46 @@
     <div class="modal fade align-items-center" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title"> FELIPE DE SOUSA DO CARMO </h6>
-                </div>
                 <div class="modal-body">
+                    <div class="d-flex flex-column w-100">
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn-close align-self-end" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                        <div class="d-flex justify-content-center p-3">
+                            <div class="d-flex flex-column justify-content-center align-items-center lh-1">
+                                <span class="fas fa-user fa-2x text-success"></span>
+                                <p class="h3 ui-text-primary">FELIPE DE SOUSA DO CARMO</p>
+                                <p class="h6 ui-text-secondary">ALGODÕES, SN, PRÓXIMO AO GINÁSIO DA ESCOLA</p>
+                            </div>
+                        </div>
+
+                        <div id="contentAlertModal">
+
+                        </div>
+
+                        <div class="d-flex justify-content-stretch">
+                            <div class="card w-100">
+                                <div class="card-body">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- LOGOUT FORM -->
+    <!--<< LOGOUT FORM -->
     <form action="{{ route('logout') }}" method="post"> @csrf </form>
-    <!-- LOGOUT FORM -->
+    <!-- LOGOUT FORM>> -->
 
 @endsection
+<!-- MAIN CONTENT>> -->
+
 
 
 @section('scripts')
+    <script src="{{ asset('js/components/Request.js') }}"></script>
     <script src="{{ asset('js/pages/caixa.js') }}"></script>
 @endsection

@@ -16,27 +16,27 @@ class AppController extends Controller
 
     public function admin(Request $request)
     {
-        return view('admin.index');
+        return view('admin');
     }
 
 
 
     public function caixa(Request $request)
     {
-        return view('caixa.index');
+        return view('caixa');
     }
 
 
 
     public function financeiro(Request $request)
     {
-        return view('financeiro.index');
+        return view('financeiro');
     }
 
 
 
     public function operacional(Request $request)
     {
-        return view('operacional.index');
+        return view('operacional');
     }
 }

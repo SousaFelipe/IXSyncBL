@@ -7,33 +7,35 @@ $("#search").on("input", function() {
     var value = input.val()
 
     if (value.toString().length >= 3) {
-
-        let url = utils.url('clientes/listar/vbusca/tbusca', {
-            vbusca: value,
-            tbusca: (utils.isNumber(value)) ? `cnpj_cpf` : `razao`
-        })
-
-        $.ajax({
-
-            url: url,
-            type: 'GET',
-
-            beforeSend: () => toggleSearchIcon('search-icon')
-       })
-       .done(response => {
-            populateResult(response.clientes)
-            toggleSearchIcon('search-icon', false)
-       })
-       .fail((jqXHR, textStatus, msg) => {
-            console.log(jqXHR)
-            console.log(textStatus)
-            console.log(msg)
-       })
+        requestClientes(value)
     }
     else {
         clearResult()
     }
 })
+
+
+
+function requestClientes(request) {
+
+    new Request('clientes/listar/vbusca/tbusca')
+        .beforeSend(() => {
+            toggleSearchIcon('search-icon')
+        })
+        .done(response => {
+            populateResult(response.clientes)
+            toggleSearchIcon('search-icon', false)
+        })
+        .fail((jqXHR, textStatus, msg) => {
+            console.log(jqXHR)
+            console.log(textStatus)
+            console.log(msg)
+        })
+        .get({
+            vbusca: request,
+            tbusca: (utils.isNumber(request)) ? `cnpj_cpf` : `razao`
+        })
+}
 
 
 
