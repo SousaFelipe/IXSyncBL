@@ -104,29 +104,30 @@
 
     </div>
 
+
+    <!-- <<MODAL CLIENTE -->
     <div class="modal fade align-items-center" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+                <input type="hidden" name="id_cliente" value="0">
                 <div class="modal-body">
-                    <div class="d-flex flex-column w-100">
+                    <div class="d-flex flex-column w-100 text-uppercase">
 
                         <button type="button" class="btn-close align-self-end" data-bs-dismiss="modal" aria-label="Close"></button>
 
                         <div class="d-flex justify-content-center p-3">
                             <div class="d-flex flex-column justify-content-center align-items-center lh-1">
-                                <span class="fas fa-user fa-2x text-success"></span>
-                                <p class="h3 ui-text-primary">FELIPE DE SOUSA DO CARMO</p>
-                                <p class="h6 ui-text-secondary">ALGODÕES, SN, PRÓXIMO AO GINÁSIO DA ESCOLA</p>
+                                <span class="fas fa-user fa-2x mt-1 mb-1 text-success"></span>
+                                <p id="razao" class="h3 ui-text-primary"></p>
+                                <p id="endereco" class="h6 ui-text-secondary"></p>
                             </div>
                         </div>
 
-                        <div id="contentAlertModal">
-
-                        </div>
+                        <div id="contentAlertModal"></div>
 
                         <div class="d-flex justify-content-stretch">
                             <div class="card w-100">
-                                <div class="card-body">
+                                <div id="contentClienteFinanceiro" class="card-body">
                                 </div>
                             </div>
                         </div>
@@ -136,6 +137,8 @@
             </div>
         </div>
     </div>
+    <!-- MODAL CLIENTE>> -->
+
 
     <!--<< LOGOUT FORM -->
     <form action="{{ route('logout') }}" method="post"> @csrf </form>

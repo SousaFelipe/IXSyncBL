@@ -7,7 +7,7 @@ $("#search").on("input", function() {
     var value = input.val()
 
     if (value.toString().length >= 3) {
-        requestClientes(value)
+        listarClientes(value)
     }
     else {
         clearResult()
@@ -16,20 +16,20 @@ $("#search").on("input", function() {
 
 
 
-function requestClientes(request) {
+/**
+ <<-- REQUISIÇÕES À API
+ */
+
+function listarClientes(request) {
 
     new Request('clientes/listar/vbusca/tbusca')
-        .beforeSend(() => {
-            toggleSearchIcon('search-icon')
-        })
+        .beforeSend(alternaIconeDeBusca('search-icon'))
         .done(response => {
-            populateResult(response.clientes)
-            toggleSearchIcon('search-icon', false)
+            exibirListaDeClientes(response.clientes)
+            alternaIconeDeBusca('search-icon', false)
         })
-        .fail((jqXHR, textStatus, msg) => {
-            console.log(jqXHR)
-            console.log(textStatus)
-            console.log(msg)
+        .fail(error => {
+            console.log(error)
         })
         .get({
             vbusca: request,
@@ -37,16 +37,48 @@ function requestClientes(request) {
         })
 }
 
+function buscarCliente(id) {
+
+    new Request('clientes/buscar/id_cliente')
+        .done(response => {
+            exibirModalCliente(response)
+        })
+        .fail(error => {
+            console.log(error)
+        })
+        .get({
+            id_cliente: id
+        })
+}
+
+function buscarRecebimentos(id) {
+
+    new Request('cre/receber/listar/areceber/id_cliente')
+        .done(response => {
+            console.log(response)
+        })
+        .fail(error => {
+            console.log(error)
+        })
+        .get({
+            id_cliente: id
+        })
+}
+
+/**
+ REQUISIÇÕES Á API -->>
+ */
 
 
-function populateResult(data) {
+
+function exibirListaDeClientes(data) {
 
     clearResult()
 
     if (data.length > 0) {
         for (let i = 0; i < data.length; i++) {
             $(`div[id="searchResult"]`).append(`
-                <div class="row ps-3 pe-3 pt-1 pb-1 clickable hover-light" onclick="select(${ data[i].id })">
+                <div class="row ps-3 pe-3 pt-1 pb-1 clickable hover-light text-uppercase" onclick="buscarCliente(${ data[i].id })">
                     <div class="col-auto">
                         <span class="text-${ data[i].ativo ? `success` : `danger` }"> <i class="fas fa-user"></i> </span>
                     </div>
@@ -63,20 +95,21 @@ function populateResult(data) {
 }
 
 
+function exibirModalCliente(cliente) {
 
-function select(id) {
-    console.log(id)
+    $('input[name="id_cliente"]').val(cliente.id)
 
-    var modal = new bootstrap.Modal(document.getElementById('clienteModal'), {
-        keyboard: false
-    })
+    $('p[id="razao"]').html(cliente.razao)
+    $('p[id="endereco"]').html(`${ cliente.endereco }, ${ (cliente.numero || `SN`) }, ${ cliente.complemento }`)
 
+    var modal = new bootstrap.Modal(document.getElementById('clienteModal'), {})
     modal.show()
+
+    buscarRecebimentos(cliente.id)
 }
 
 
-
-function toggleSearchIcon(element, loading = true) {
+function alternaIconeDeBusca(element, loading = true) {
 
     const htmlSpinner = `
         <div class="spinner-border spinner-border-sm text-secondary" role="status">

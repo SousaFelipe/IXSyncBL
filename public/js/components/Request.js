@@ -1,5 +1,6 @@
 
 
+
 class Request {
 
 
@@ -46,7 +47,7 @@ class Request {
            this.onDone.call(this, response)
        })
        .fail((jqXHR, textStatus, msg) => {
-            this.onFail.call(this, jqXHR, textStatus, msg)
+            this.onFail.call(this, { jqXHR: jqXHR, textStatus: textStatus, msg: msg })
        })
     }
 

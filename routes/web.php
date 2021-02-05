@@ -38,3 +38,10 @@ Route::prefix('/clientes')->group(function () {
     Route::get('/listar/{vbusca}/{tbusca}', [App\Http\Controllers\ClienteController::class, 'listar']);
 
 });
+
+
+Route::prefix('/cre')->group(function () {
+
+    Route::get('/receber/listar/areceber/{id_cliente}', [App\Http\Controllers\Financeiro\CreController::class, 'areceber']);
+
+});
