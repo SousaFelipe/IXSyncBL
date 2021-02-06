@@ -12,7 +12,7 @@ class CreController extends Controller
     public function areceber(Request $request)
     {
         $recebimento = new Recebimento();
-        $record = $recebimento->when($request->id_cliente, '=', 'id_cliente', '1', '1', 'data_vencimento', 'asc')->getRecords();
+        $record = $recebimento->when($request->id_cliente, '=', 'id_cliente', 1, 12, 'data_vencimento', 'desc')->getRecords();
         $response = self::convertRecursively($record);
 
         return response()->json((count($response) > 0) ? $response : []);

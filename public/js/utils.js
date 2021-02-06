@@ -1,6 +1,31 @@
 
 
 
+function today() {
+    let init = new Date()
+
+    let date = new Date(
+        init.getFullYear(),
+        init.getMonth(),
+        init.getDay()
+    )
+
+    return date
+}
+
+
+function now() {
+
+}
+
+
+
+function todayNow() {
+
+}
+
+
+
 const utils = {
 
 
@@ -20,5 +45,20 @@ const utils = {
 
     isNumber: (obj) => {
         return !isNaN(parseFloat(obj)) && isFinite(obj)
+    },
+
+
+    date: (dateString = '') => {
+
+        return {
+
+            today:      today,
+            now:        now,
+            todayNow:   todayNow,
+
+            object: () => { return new Date(dateString) },
+            string: () => { return (new Date(dateString)).toLocaleDateString() }
+        }
     }
+
 }

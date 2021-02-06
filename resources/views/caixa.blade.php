@@ -96,9 +96,7 @@
                     </span>
                     <input type="text" id="search" class="search-control search-control-lg" placeholder="Buscar CPF ou nome do cliente..." aria-label="Busca" oncha ="searchForClients()">
                 </div>
-                <div id="searchResult" class="d-flex flex-column">
-
-                </div>
+                <div id="contentListaDeClientes" class="d-flex flex-column"></div>
             </div>
         </div>
 
@@ -151,5 +149,6 @@
 
 @section('scripts')
     <script src="{{ asset('js/components/Request.js') }}"></script>
+    <script src="{{ asset('js/models/Recebimento.js') }}"></script>
     <script src="{{ asset('js/pages/caixa.js') }}"></script>
 @endsection

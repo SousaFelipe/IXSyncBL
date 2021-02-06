@@ -10,8 +10,14 @@ $("#search").on("input", function() {
         listarClientes(value)
     }
     else {
-        clearResult()
+        limparClientesListados()
     }
+})
+
+
+
+$("#clienteModal").on("hidden.bs.modal", function() {
+    limparRecebimentosListados()
 })
 
 
@@ -19,7 +25,6 @@ $("#search").on("input", function() {
 /**
  <<-- REQUISIÇÕES À API
  */
-
 function listarClientes(request) {
 
     new Request('clientes/listar/vbusca/tbusca')
@@ -55,7 +60,7 @@ function buscarRecebimentos(id) {
 
     new Request('cre/receber/listar/areceber/id_cliente')
         .done(response => {
-            console.log(response)
+            exibirRecebimentos(response)
         })
         .fail(error => {
             console.log(error)
@@ -64,36 +69,36 @@ function buscarRecebimentos(id) {
             id_cliente: id
         })
 }
-
 /**
  REQUISIÇÕES Á API -->>
  */
 
 
 
-function exibirListaDeClientes(data) {
+/**
+ <<-- EXIBIR LISTAS
+ */
+function exibirListaDeClientes(clientes) {
+    limparClientesListados()
 
-    clearResult()
-
-    if (data.length > 0) {
-        for (let i = 0; i < data.length; i++) {
-            $(`div[id="searchResult"]`).append(`
-                <div class="row ps-3 pe-3 pt-1 pb-1 clickable hover-light text-uppercase" onclick="buscarCliente(${ data[i].id })">
+    if (clientes.length > 0) {
+        for (let i = 0; i < clientes.length; i++) {
+            $(`div[id="contentListaDeClientes"]`).append(`
+                <div class="row ps-3 pe-3 pt-1 pb-1 clickable hover-light text-uppercase" onclick="buscarCliente(${ clientes[i].id })">
                     <div class="col-auto">
-                        <span class="text-${ data[i].ativo ? `success` : `danger` }"> <i class="fas fa-user"></i> </span>
+                        <span class="text-${ clientes[i].ativo ? `success` : `danger` }"> <i class="fas fa-user"></i> </span>
                     </div>
-                    <div class="col-4 override-pills fs-7"> ${ data[i].razao } </div>
-                    <div class="col-2 override-pills fs-7"> ${ data[i].endereco } </div>
-                    <div class="col-5 override-pills fs-7"> ${ data[i].complemento } </div>
+                    <div class="col-4 override-pills fs-7"> ${ clientes[i].razao } </div>
+                    <div class="col-2 override-pills fs-7"> ${ clientes[i].endereco } </div>
+                    <div class="col-5 override-pills fs-7"> ${ clientes[i].complemento } </div>
                 </div>
             `)
         }
     }
     else {
-        clearResult()
+        limparClientesListados()
     }
 }
-
 
 function exibirModalCliente(cliente) {
 
@@ -107,6 +112,67 @@ function exibirModalCliente(cliente) {
 
     buscarRecebimentos(cliente.id)
 }
+
+function exibirRecebimentos(recebimentos) {
+    limparRecebimentosListados()
+
+    if (recebimentos.length > 0) {
+
+        $(`div[id="contentClienteFinanceiro"]`).append(`
+            <div class="row ps-3 pe-3 text-uppercase">
+                <div class="col-1">PG</div>
+                <div class="col-2 override-pills fs-7">ID</div>
+                <div class="col-3 override-pills fs-7">VENCIMENTO</div>
+                <div class="col-2 override-pills fs-7">ABERTO</div>
+                <div class="col-2 override-pills fs-7">CANCELADO</div>
+                <div class="col-2 override-pills fs-7">RECEBIDO</div>
+            </div>
+            <hr>
+        `)
+
+        for (let i = 0; i < recebimentos.length; i++) {
+            const receb = new Recebimento(recebimentos[i])
+
+            $(`div[id="contentClienteFinanceiro"]`).append(`
+                <div class="row ps-3 pe-3 pt-1 pb-1 clickable hover-light text-uppercase">
+                    <div class="col-1">
+                        <span class="badge rounded-pill bg-${ receb.status_cor }">
+                            <i class="fas fa-${ receb.status_icone }"></i>
+                        </span>
+                    </div>
+                    <div class="col-2 override-pills fs-7"> ${ receb.id } </div>
+                    <div class="col-3 override-pills fs-7"> ${ receb.data_vencimento } </div>
+                    <div class="col-2 override-pills fs-7"> ${ receb.valor_aberto } </div>
+                    <div class="col-2 override-pills fs-7"> ${ receb.valor_cancelado } </div>
+                    <div class="col-2 override-pills fs-7"> ${ receb.valor_recebido } </div>
+                </div>
+            `)
+        }
+    }
+    else {
+        limparRecebimentosListados()
+    }
+}
+/**
+ EXIBIR LISTAS -->>
+ */
+
+
+
+/**
+ <<-- LIMPAR ELEMENTOS
+ */
+function limparClientesListados() {
+    $(`div[id="contentListaDeClientes"]`).html(``)
+}
+
+function limparRecebimentosListados() {
+    $(`div[id="contentClienteFinanceiro"]`).html(``)
+}
+/**
+ LIMPAR ELEMENTOS -->>
+ */
+
 
 
 function alternaIconeDeBusca(element, loading = true) {
@@ -123,10 +189,4 @@ function alternaIconeDeBusca(element, loading = true) {
 
     $(`span[id="${ element }"]`).html('')
     $(`span[id="${ element }"]`).html( loading ? htmlSpinner : htmlSearch )
-}
-
-
-
-function clearResult() {
-    $(`div[id="searchResult"]`).html(``)
 }

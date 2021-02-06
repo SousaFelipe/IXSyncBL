@@ -16,6 +16,14 @@ class BaseModel extends Model
 
 
 
+    /**
+     * @param $query        string  O valor a ser comparado no banco de dados
+     * @param $oper         string  O tipo de busca que deve ser feita
+     * @param $qtype        string  A página dos itens retornados
+     * @param $rp           string  A quantidade máxima de itens retornados
+     * @param $sortname     string  O nome do campo para organizar a busca
+     * @param $sortorder    string  A ordem de organização da busca
+     */
     public function when($query = '0', $oper = '>', $qtype = '', $page = '1', $rp = '20', $sortname = '', $sortorder = 'asc')
     {
         $this->ixc = new IXCClient();
