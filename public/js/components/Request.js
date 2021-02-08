@@ -7,12 +7,25 @@ class Request {
 
     constructor(url) {
         this.url = url
+        this.headers = {}
     }
 
 
 
     beforeSend(onBeforeSend) {
         this.onBeforeSend = onBeforeSend
+        return this
+    }
+
+
+
+    csrf() {
+
+        this.headers = {
+            ...this.headers,
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+
         return this
     }
 
@@ -40,6 +53,7 @@ class Request {
 
             url: url,
             type: 'GET',
+            headers: this.headers,
 
             beforeSend: () => (this.onBeforeSend != undefined) ? this.onBeforeSend : null
        })

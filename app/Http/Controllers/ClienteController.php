@@ -10,6 +10,10 @@ class ClienteController extends Controller
 {
     public function buscar(Request $request)
     {
+        if ($this->csrfBroken($request)) {
+            return $this->unauthorized();
+        }
+
         $cliente = new Cliente();
         $record = $cliente->when($request->id_cliente, '=', 'id', '1', '1', 'id', 'asc')->getRecords();
         $response = self::convertRecursively($record);
@@ -21,6 +25,10 @@ class ClienteController extends Controller
 
     public function listar(Request $request)
     {
+        if ($this->csrfBroken($request)) {
+            return $this->unauthorized();
+        }
+        
         $query = $request->vbusca;
         $qtype = $request->tbusca;
 

@@ -28,11 +28,11 @@
 
 
 .ui-text-primary {
-    color: var(--ui-color-text-primary);
+    color: var(--ui-color-text-primary) !important;
 }
 
 .ui-text-secondary {
-    color: var(--ui-color-text-secondary);
+    color: var(--ui-color-text-secondary) !important;
 }
 
 
@@ -67,6 +67,10 @@ img[class*="avatar"] {
     text-overflow:  ellipsis !important;
 }
 
+.opacity-75 {
+    opacity: 0.75;
+}
+
 
 
 /*
@@ -75,4 +79,41 @@ img[class*="avatar"] {
 
 .fs-7 {
     font-size: 0.8rem;
+}
+
+
+
+@media (max-width: 575.98px) {
+    :root {
+        --ui-card-md-w:         100%;
+        --search-content-with:  100%;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    :root {
+        --ui-card-md-w:         24em;
+        --search-content-with:  560px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    :root {
+        --ui-card-md-w:         26em;
+        --search-content-with:  560px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    :root {
+        --ui-card-md-w:         26em;
+        --search-content-with:  560px;
+    }
+}
+
+@media (min-width: 1200px) {
+    :root {
+        --ui-card-md-w:         30em;
+        --search-content-with:  600px;
+    }
 }

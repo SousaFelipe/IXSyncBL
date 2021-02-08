@@ -21,7 +21,28 @@ class Controller extends BaseController
 
 
 
-    public static function convertRecursively($dat)
+    protected function csrfBroken($request)
+    {
+        $sessionToken = $request->session()->token();
+        $headerToken = $request->header('X-CSRF-TOKEN');
+
+        return (
+            (is_null($sessionToken) || is_null($headerToken)) || ($sessionToken != $headerToken)
+        );
+    }
+
+
+
+    protected function unauthorized($json = true)
+    {
+        return $json
+            ? response()->json([ 401 => 'Unauthorized' ])
+            : "View::";
+    }
+
+
+
+    protected static function convertRecursively($dat)
     {
         if (is_string($dat)) {
             return utf8_encode($dat);

@@ -1,5 +1,11 @@
 
 
+$(document).ready(function () {
+
+    configureCards()
+
+})
+
 
 $("#search").on("input", function() {
 
@@ -22,12 +28,17 @@ $("#clienteModal").on("hidden.bs.modal", function() {
 
 
 
+
+
+
+
 /**
  <<-- REQUISIÇÕES À API
  */
 function listarClientes(request) {
 
     new Request('clientes/listar/vbusca/tbusca')
+        .csrf()
         .beforeSend(alternaIconeDeBusca('search-icon'))
         .done(response => {
             exibirListaDeClientes(response.clientes)
@@ -45,8 +56,10 @@ function listarClientes(request) {
 function buscarCliente(id) {
 
     new Request('clientes/buscar/id_cliente')
+        .csrf()
         .done(response => {
             exibirModalCliente(response)
+            console.log(response)
         })
         .fail(error => {
             console.log(error)
@@ -59,6 +72,7 @@ function buscarCliente(id) {
 function buscarRecebimentos(id) {
 
     new Request('cre/receber/listar/areceber/id_cliente')
+        .csrf()
         .done(response => {
             exibirRecebimentos(response)
         })
@@ -102,7 +116,7 @@ function exibirListaDeClientes(clientes) {
 
 function exibirModalCliente(cliente) {
 
-    $('input[name="id_cliente"]').val(cliente.id)
+    document.getElementsByName('id_cliente').value = cliente.id
 
     $('p[id="razao"]').html(cliente.razao)
     $('p[id="endereco"]').html(`${ cliente.endereco }, ${ (cliente.numero || `SN`) }, ${ cliente.complemento }`)
@@ -189,4 +203,29 @@ function alternaIconeDeBusca(element, loading = true) {
 
     $(`span[id="${ element }"]`).html('')
     $(`span[id="${ element }"]`).html( loading ? htmlSpinner : htmlSearch )
+}
+
+
+
+function configureCards() {
+
+    new Card($('div[id="fnVencidosCard"]'))
+        .click(() => {
+            buscarRecebimentos($('input[name="id_cliente"]').val())
+        })
+
+    new Card($('div[id="fnEmAbertoCard"]'))
+        .click(() => {
+            alert('Card de faturas em aberto clicado!')
+        })
+
+    new Card($('div[id="fnPagasCard"]'))
+        .click(() => {
+            alert('Card de faturas pagas clicado!')
+        })
+
+    new Card($('div[id="fnCanceladasCard"]'))
+        .click(() => {
+            alert('Card de faturas canceladas clicado!')
+        })
 }
