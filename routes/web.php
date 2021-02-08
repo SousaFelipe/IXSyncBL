@@ -42,6 +42,6 @@ Route::prefix('/clientes')->group(function () {
 
 Route::prefix('/cre')->group(function () {
 
-    Route::get('/receber/listar/areceber/{id_cliente}', [App\Http\Controllers\Financeiro\CreController::class, 'areceber']);
+    Route::get('/receber/listar/areceber/{id_cliente}/{status}', [App\Http\Controllers\Financeiro\CreController::class, 'areceber']);
 
 });

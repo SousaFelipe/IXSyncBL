@@ -107,7 +107,7 @@
     <div class="modal fade align-items-center" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <input type="hidden" name="id_cliente" value="0">
+                <input type="hidden" name="id_cliente" >
                 <div class="modal-body">
                     <div class="d-flex flex-column w-100">
 

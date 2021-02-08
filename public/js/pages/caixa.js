@@ -59,7 +59,6 @@ function buscarCliente(id) {
         .csrf()
         .done(response => {
             exibirModalCliente(response)
-            console.log(response)
         })
         .fail(error => {
             console.log(error)
@@ -69,18 +68,20 @@ function buscarCliente(id) {
         })
 }
 
-function buscarRecebimentos(id) {
+function buscarRecebimentos(id, status = 'T') {
 
-    new Request('cre/receber/listar/areceber/id_cliente')
+    new Request('cre/receber/listar/areceber/id_cliente/status')
         .csrf()
         .done(response => {
             exibirRecebimentos(response)
+            console.log(response)
         })
         .fail(error => {
             console.log(error)
         })
         .get({
-            id_cliente: id
+            id_cliente: id,
+            status: status
         })
 }
 /**
@@ -116,7 +117,7 @@ function exibirListaDeClientes(clientes) {
 
 function exibirModalCliente(cliente) {
 
-    document.getElementsByName('id_cliente').value = cliente.id
+    $('input[name="id_cliente"]').attr('value', cliente.id)
 
     $('p[id="razao"]').html(cliente.razao)
     $('p[id="endereco"]').html(`${ cliente.endereco }, ${ (cliente.numero || `SN`) }, ${ cliente.complemento }`)
@@ -209,23 +210,17 @@ function alternaIconeDeBusca(element, loading = true) {
 
 function configureCards() {
 
+    const id_cliente = $('input[name="id_cliente"]').val()
+
     new Card($('div[id="fnVencidosCard"]'))
-        .click(() => {
-            buscarRecebimentos($('input[name="id_cliente"]').val())
-        })
+        .click(() => buscarRecebimentos(id_cliente, 'AV'))
 
     new Card($('div[id="fnEmAbertoCard"]'))
-        .click(() => {
-            alert('Card de faturas em aberto clicado!')
-        })
+        .click(() => buscarRecebimentos(id_cliente, 'A'))
 
     new Card($('div[id="fnPagasCard"]'))
-        .click(() => {
-            alert('Card de faturas pagas clicado!')
-        })
+        .click(() => buscarRecebimentos(id_cliente, 'P'))
 
     new Card($('div[id="fnCanceladasCard"]'))
-        .click(() => {
-            alert('Card de faturas canceladas clicado!')
-        })
+        .click(() => buscarRecebimentos(id_cliente, 'C'))
 }
