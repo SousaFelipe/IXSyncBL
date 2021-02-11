@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('/clientes')->group(function () {
 
-    Route::get('/buscar/{id_cliente}', [App\Http\Controllers\ClienteController::class, 'buscar']);
+    Route::get('/buscar/{cliente}', [App\Http\Controllers\ClienteController::class, 'buscar']);
     Route::get('/listar/{vbusca}/{tbusca}', [App\Http\Controllers\ClienteController::class, 'listar']);
 
 });
@@ -42,6 +42,7 @@ Route::prefix('/clientes')->group(function () {
 
 Route::prefix('/cre')->group(function () {
 
-    Route::get('/receber/listar/areceber/{id_cliente}/{status}', [App\Http\Controllers\Financeiro\CreController::class, 'areceber']);
+    Route::get('/recebimentos/listar/categorizados/{cliente}', [App\Http\Controllers\Financeiro\CreController::class, 'categorizados']);
+    Route::get('/recebimentos/listar/status/{cliente}/{status}', [App\Http\Controllers\Financeiro\CreController::class, 'status']);
 
 });

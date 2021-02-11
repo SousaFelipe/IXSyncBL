@@ -15,15 +15,18 @@ class ClienteController extends Controller
         }
 
         $cliente = new Cliente();
-        $record = $cliente->when($request->id_cliente, '=', 'id', '1', '1', 'id', 'asc')->getRecords();
-        $response = self::convertRecursively($record);
+        $clientes = $cliente->when('id', '=', $request->cliente)
+            ->max(1)
+            ->receive();
+
+        $response = self::convertRecursively($clientes);
 
         return response()->json((count($response) > 0) ? $response[0] : []);
     }
 
 
 
-    public function listar(Request $request)
+    public function listar(Request $request, Cliente $cliente)
     {
         if ($this->csrfBroken($request)) {
             return $this->unauthorized();
@@ -32,8 +35,11 @@ class ClienteController extends Controller
         $query = $request->vbusca;
         $qtype = $request->tbusca;
 
-        $cliente = new Cliente();
-        $clientes = $cliente->when($query, 'LE', $qtype, '1', '10', $qtype, 'asc')->getRecords();
+        $clientes = $cliente->when($qtype, 'LE', $query)
+            ->orderBy($qtype)
+            ->max(10)
+            ->receive();
+
         $response = self::convertRecursively($clientes);
 
         return response()->json(['clientes' => $response]);

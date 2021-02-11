@@ -105,15 +105,16 @@
 
     <!-- <<MODAL CLIENTE -->
     <div class="modal fade align-items-center" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-fullscreen-md-down modal-lg">
             <div class="modal-content">
                 <input type="hidden" name="id_cliente" >
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
                 <div class="modal-body">
                     <div class="d-flex flex-column w-100">
 
-                        <button type="button" class="btn-close align-self-end" data-bs-dismiss="modal" aria-label="Close"></button>
-
-                        <div class="d-flex justify-content-center p-3 text-uppercase">
+                        <div class="d-flex justify-content-center text-uppercase mb-3">
                             <div class="d-flex flex-column justify-content-center align-items-center lh-1">
                                 <span class="fas fa-user fa-2x mt-1 mb-1 text-success"></span>
                                 <p id="razao" class="h3 ui-text-primary"></p>
@@ -121,58 +122,88 @@
                             </div>
                         </div>
 
-                        <div id="contentAlertModal"></div>
-
-                        <div class="row d-flex justify-content-stretch mb-3">
-                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
-                                <div id="fnVencidosCard" class="card text-white bg-danger border-0 clickable">
-                                    <div class="card-body">
-                                        <span class="d-flex align-items-center opacity-75">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                            <span id="fnVencidasQuatidade" class="ms-2">Vencidas (2)</span>
-                                        </span>
-                                        <p id="fnVencidasValor" class="card-text h4">R$ 120,00</p>
+                        <div class="d-flex flex-column w-100 m-0 p-0">
+                            <div class="row d-flex justify-content-stretch mb-3">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                    <div id="fnVencidosCard" class="card text-white bg-danger border-0 mb-sm-3 mb-md-3 clickable">
+                                        <div class="d-flex justify-content-center align-items-center bg-danger w-100 h-100 rounded position-absolute">
+                                            <div class="spinner-border text-light" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <span class="d-flex align-items-center opacity-75">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <span id="fnVencidosQuatidade" class="ms-2"></span>
+                                            </span>
+                                            <p id="fnVencidosValor" class="card-text h4"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                    <div id="fnEmAbertoCard" class="card text-white bg-info border-0 clickable">
+                                        <div class="d-flex justify-content-center align-items-center bg-info w-100 h-100 rounded position-absolute">
+                                            <div class="spinner-border text-light" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <span class="d-flex align-items-center opacity-75">
+                                                <i class="fas fa-thumbs-up"></i>
+                                                <span id="fnEmAbertoQuatidade" class="ms-2"></span>
+                                            </span>
+                                            <p id="fnEmAbertoValor" class="card-text h4"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                    <div id="fnPagosCard" class="card text-white bg-success border-0 mb-sm-3 mb-md-3 clickable">
+                                        <div class="d-flex justify-content-center align-items-center bg-success w-100 h-100 rounded position-absolute">
+                                            <div class="spinner-border text-light" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <span class="d-flex align-items-center opacity-75">
+                                                <i class="fas fa-money-bill-wave"></i>
+                                                <span id="fnPagosQuatidade" class="ms-2"></span>
+                                            </span>
+                                            <p id="fnPagosValor" class="card-text h4"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                    <div id="fnCanceladosCard" class="card ui-text-primary bg-light border-0 clickable">
+                                        <div class="d-flex justify-content-center align-items-center bg-light w-100 h-100 rounded position-absolute">
+                                            <div class="spinner-border text-dark" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <span class="d-flex align-items-center opacity-75">
+                                                <i class="fas fa-thumbs-down"></i>
+                                                <span id="fnCanceladosQuatidade" class="ms-2"></span>
+                                            </span>
+                                            <p id="fnCanceladosValor" class="card-text h4"></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
-                                <div id="fnEmAbertoCard" class="card text-white bg-info border-0 clickable">
-                                    <div class="card-body">
-                                        <span class="d-flex align-items-center opacity-75">
-                                            <i class="fas fa-thumbs-up"></i>
-                                            <span id="fnEmAbertoQuatidade" class="ms-2">Em aberto (7)</span>
-                                        </span>
-                                        <p id="fnEmAbertoValor" class="card-text h4">R$ 420,00</p>
+    
+                            <div class="d-flex justify-content-stretch">
+                                <div id="cardClienteFn" class="card border-danger w-100">
+                                    <div class="card-header">
+                                        <div class="row pt-1 pb-1 fw-bolder">
+                                            <div class="col-1">PG</div>
+                                            <div class="col-2 override-pills fs-7">ID</div>
+                                            <div class="col-3 override-pills fs-7">VENCIMENTO</div>
+                                            <div class="col-2 override-pills fs-7">ABERTO</div>
+                                            <div class="col-2 override-pills fs-7">CANCELADO</div>
+                                            <div class="col-2 override-pills fs-7">RECEBIDO</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
-                                <div id="fnPagasCard" class="card text-white bg-success border-0 clickable">
-                                    <div class="card-body">
-                                        <span class="d-flex align-items-center opacity-75">
-                                            <i class="fas fa-money-bill-wave"></i>
-                                            <span id="fnPagasQuatidade" class="ms-2">Pagas (3)</span>
-                                        </span>
-                                        <p id="fnPagasValor" class="card-text h4">R$ 180,00</p>
+                                    <div id="contentClienteFn" class="card-body pt-1 pb-1" style="max-height: 14rem; overflow-x: hidden; overflow-y: auto;">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
-                                <div id="fnCanceladasCard" class="card ui-text-primary bg-light border-0 clickable">
-                                    <div class="card-body">
-                                        <span class="d-flex align-items-center opacity-75">
-                                            <i class="fas fa-thumbs-down"></i>
-                                            <span id="fnCanceladasQuatidade" class="ms-2">Canceladas (0)</span>
-                                        </span>
-                                        <p id="fnCanceladasValor" class="card-text h4">R$ 0,0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-stretch">
-                            <div class="card w-100">
-                                <div id="contentClienteFinanceiro" class="card-body">
                                 </div>
                             </div>
                         </div>
@@ -198,5 +229,6 @@
     <script src="{{ asset('js/components/Request.js') }}"></script>
     <script src="{{ asset('js/components/Card.js') }}"></script>
     <script src="{{ asset('js/models/Recebimento.js') }}"></script>
+    <script src="{{ asset('js/html/elements.js') }}"></script>
     <script src="{{ asset('js/pages/caixa.js') }}"></script>
 @endsection

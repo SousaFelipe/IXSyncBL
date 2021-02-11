@@ -9,31 +9,38 @@ use Illuminate\Http\Request;
 
 class CreController extends Controller
 {
-    public function areceber(Request $request)
+    public function categorizados(Request $request, Recebimento $recebimento)
     {
-        $recebimento = new Recebimento();
-        $record = $recebimento->when($request->id_cliente, '=', 'id_cliente', 1, 12, 'data_vencimento', 'desc')->getRecords();
-
-        if (isset($request->status )&& $request->status != 'T') {
-            $record = Recebimento::filtrarPorStatus($record, $request->status);
+        if ($this->csrfBroken($request)) {
+            return $this->unauthorized();
         }
 
-        $response = self::convertRecursively($record);
+        $recebimentos = $recebimento->when('id_cliente', '=', $request->cliente)
+            ->orderBy('data_vencimento', 'desc')
+            ->in(1)
+            ->receive();
+
+        $response = self::convertRecursively(Recebimento::categorizados($recebimentos));
 
         return response()->json((count($response) > 0) ? $response : []);
     }
 
 
 
-    private function filtrarPorStatus($recebimentos, $status = 'T') {
-        $filtrados = [];
-
-        foreach ($recebimentos as $key => $recebimento) {
-            if ($recebimento['status'] == $status) {
-                $filtrados[] = $recebimento;
-            }
+    public function status(Request $request, Recebimento $recebimento)
+    {
+        if ($this->csrfBroken($request)) {
+            return $this->unauthorized();
         }
 
-        return $filtrados;
+        $recebimentos = $recebimento->when('id_cliente', '=', $request->cliente)
+            ->orderBy('data_vencimento', 'desc')
+            ->in(1)
+            ->receive();
+
+        $recebimentos = Recebimento::filtrarPorStatus($recebimentos, $request->status);
+        $response = self::convertRecursively($recebimentos);
+
+        return response()->json((count($response) > 0) ? $response : []);
     }
 }
