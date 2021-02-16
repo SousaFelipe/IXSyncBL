@@ -42,7 +42,13 @@ Route::prefix('/clientes')->group(function () {
 
 Route::prefix('/cre')->group(function () {
 
-    Route::get('/recebimentos/listar/categorizados/{cliente}', [App\Http\Controllers\Financeiro\CreController::class, 'categorizados']);
-    Route::get('/recebimentos/listar/status/{cliente}/{status}', [App\Http\Controllers\Financeiro\CreController::class, 'status']);
+    Route::prefix('/recebimentos')->group(function () {
+        Route::get('/listar/categorizados/{cliente}', [App\Http\Controllers\Financeiro\CreController::class, 'categorizados']);
+        Route::get('/listar/status/{cliente}/{status}', [App\Http\Controllers\Financeiro\CreController::class, 'status']);
+    });
+
+    Route::prefix('/contratos')->group(function () {
+        Route::get('/listar/{cliente}', [App\Http\Controllers\Financeiro\ClienteContratoController::class, 'listar']);
+    });
 
 });

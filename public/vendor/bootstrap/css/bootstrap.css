@@ -23,7 +23,7 @@
   --bs-secondary: #708C91;
   --bs-success:   #5DD167;
   --bs-info:      #0dcaf0;
-  --bs-warning:   #ffc107;
+  --bs-warning:   #ffc832;
   --bs-danger:    #F53F5B;
   --bs-light:     #EDEDED;
   --bs-dark:      #054752;
@@ -7187,11 +7187,11 @@ textarea.form-control-lg {
 }
 
 .text-info {
-  color: #0dcaf0 !important;
+  color: var(--bs-info) !important;
 }
 
 .text-warning {
-  color: #ffc107 !important;
+  color: var(--bs-warning) !important;
 }
 
 .text-danger {
@@ -7207,7 +7207,7 @@ textarea.form-control-lg {
 }
 
 .text-white {
-  color: #fff !important;
+  color: var(--bs-white) !important;
 }
 
 .text-body {
@@ -7259,11 +7259,11 @@ textarea.form-control-lg {
 }
 
 .bg-info {
-  background-color: #0dcaf0 !important;
+  background-color: var(--bs-info) !important;
 }
 
 .bg-warning {
-  background-color: #ffc107 !important;
+  background-color: var(--bs-warning) !important;
 }
 
 .bg-danger {

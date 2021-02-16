@@ -11,8 +11,9 @@ class Recebimento {
         this.id_cliente = props.id_cliente
 
         this.data = {
-            cancelamento:   props.data_cancelamento,
             emissao:        props.data_emissao,
+            pagamento:      props.pagamento_data,
+            cancelamento:   props.data_cancelamento,
             vencinmento:    props.data_vencimento
         }
 
@@ -49,6 +50,25 @@ class Recebimento {
             hoje: () => (hoje == vencimento),
             passou: () =>  (hoje > vencimento)
         }
+    }
+
+
+
+    dataBaixa() {
+
+        let baixa = utils.date(
+
+            (this.data.pagamento != '')
+                ? this.data.pagamento
+                : (this.data.cancelamento != '')
+                    ? this.data.cancelamento
+                    : 'NÃO BAIXADO'
+
+        ).string()
+
+        console.log(baixa)
+
+        return utils.date(baixa).isValid() ? baixa : `<span class="badge rounded-pill bg-secondary">Não</span>`
     }
 
 

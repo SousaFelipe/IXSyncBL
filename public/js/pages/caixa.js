@@ -6,24 +6,6 @@ let fnCategorizados = []
 
 
 
-let fnVencidosCard = new Card('div[id="fnVencidosCard"]')
-    .color('danger')
-    .click(() => exibirRecebimentos('vencidos'))
-
-let fnEmAbertoCard = new Card('div[id="fnEmAbertoCard"]')
-    .color('primary')
-    .click(() => exibirRecebimentos('em_aberto'))
-
-let fnPagosCard = new Card('div[id="fnPagosCard"]')
-    .color('success')
-    .click(() => exibirRecebimentos('pagos'))
-
-let fnCanceladosCard = new Card('div[id="fnCanceladosCard"]')
-    .color('secondary')
-    .click(() => exibirRecebimentos('cancelados'))
-
-
-
 $("#search").on("input", function() {
 
     var input = $(this)
@@ -35,17 +17,6 @@ $("#search").on("input", function() {
     else {
         limparClientesListados()
     }
-})
-
-
-
-$("#clienteModal").on("hidden.bs.modal", function() {
-    limparRecebimentosListados()
-
-    fnVencidosCard.startLoading()
-    fnEmAbertoCard.startLoading()
-    fnPagosCard.startLoading()
-    fnCanceladosCard.startLoading()
 })
 
 
@@ -86,21 +57,18 @@ function buscarCliente(id) {
         })
 }
 
-function listarRecebimentos(id, status) {
-    
-    new Request('cre/recebimentos/listar/categorizados/{cliente}')
-    .csrf()
-    .done(response => {
-        fnCategorizados = response
-        exibirRecebimentos(status)
-    })
-    .fail(error => {
-        console.log(error)
-    })
-    .get({
-        cliente: id,
-    })
+function listarContratos(id) {
+
+    new Request('cre/contratos/listar/{cliente}')
+        .csrf()
+        .done(response => {
+            exibirContratos(response)
+        })
+        .get({
+            cliente: id
+        })
 }
+
 /**
  REQUISIÇÕES Á API -->>
  */
@@ -133,7 +101,7 @@ function exibirListaDeClientes(clientes) {
 }
 
 function exibirModalCliente(cliente) {
-    
+
     $('input[name="id_cliente"]').val(cliente.id)
     $('p[id="razao"]').html(cliente.razao)
     $('p[id="endereco"]').html(`${ cliente.endereco }, ${ (cliente.numero || `SN`) }, ${ cliente.complemento }`)
@@ -141,69 +109,119 @@ function exibirModalCliente(cliente) {
     var modal = new bootstrap.Modal(document.getElementById('clienteModal'), {})
     modal.show()
 
-    listarRecebimentos(cliente.id, 'vencidos')
+    listarContratos(cliente.id)
 }
 
-function exibirRecebimentos(status) {
-    preencherCards()
-    limparRecebimentosListados()
+function exibirContratos(contratos) {
+    limparClienteContratos()
 
-    const fnPorStatus = fnCategorizados[status]
+    if (contratos.length > 0) {
+        for (let i = 0; i < contratos.length; i++) {
 
-    if (fnPorStatus.length > 0) {
-        for (let i = 0; i < fnPorStatus.length; i++) {
-            const receb = new Recebimento(fnPorStatus[i])
+            let ccontrato = new ClienteContrato(contratos[i])
 
-            $(`div[id="contentClienteFn"]`).append(`
-                <div class="row ps-0 pe-0 t-1 pb-1 clickable hover-light text-uppercase">
-                    <div class="col-1">
-                        <span class="badge rounded-pill bg-${ receb.status_cor }">
-                            <i class="fas fa-${ receb.status_icone }"></i>
-                        </span>
+            $(`div[id="accordionContratos"]`).append(
+                ccontrato.accordion(i, `
+                    <div class="row d-flex justify-content-stretch">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="fnVencidosCard${ ccontrato.id() }" class="card mb-sm-3 mb-md-3 clickable">
+                                <div class="d-flex justify-content-center align-items-center bg-white w-100 h-100 rounded position-absolute">
+                                    <div class="spinner-border ixs-text-danger" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <span class="d-flex align-items-center opacity-75">
+                                        <i class="fas fa-exclamation-triangle ixs-text-danger"></i>
+                                        <span id="fnVencidosQuatidade${ ccontrato.id() }" class="ms-2"></span>
+                                    </span>
+                                    <p id="fnVencidosValor${ ccontrato.id() }" class="card-text h4"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="fnEmAbertoCard${ ccontrato.id() }" class="card clickable">
+                                <div class="d-flex justify-content-center align-items-center w-100 h-100 rounded position-absolute">
+                                    <div class="spinner-border ixs-text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <span class="d-flex align-items-center opacity-75">
+                                        <i class="fas fa-thumbs-up ixs-text-primary"></i>
+                                        <span id="fnEmAbertoQuatidade${ ccontrato.id() }" class="ms-2"></span>
+                                    </span>
+                                    <p id="fnEmAbertoValor${ ccontrato.id() }" class="card-text h4"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="fnPagosCard${ ccontrato.id() }" class="card mb-sm-3 mb-md-3 clickable">
+                                <div class="d-flex justify-content-center align-items-center w-100 h-100 rounded position-absolute zindex-tooltip">
+                                    <div class="spinner-border text-success" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <span class="d-flex align-items-center opacity-75">
+                                        <i class="fas fa-money-bill-wave text-success"></i>
+                                        <span id="fnPagosQuatidade${ ccontrato.id() }" class="ms-2"></span>
+                                    </span>
+                                    <p id="fnPagosValor${ ccontrato.id() }" class="card-text h4"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="fnCanceladosCard${ ccontrato.id() }" class="card clickable">
+                                <div class="d-flex justify-content-center align-items-center w-100 h-100 rounded position-absolute">
+                                    <div class="spinner-border text-dark" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <span class="d-flex align-items-center opacity-75">
+                                        <i class="fas fa-thumbs-down"></i>
+                                        <span id="fnCanceladosQuatidade${ ccontrato.id() }" class="ms-2"></span>
+                                    </span>
+                                    <p id="fnCanceladosValor${ ccontrato.id() }" class="card-text h4"></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-2 override-pills fs-7"> ${ receb.id } </div>
-                    <div class="col-3 override-pills fs-7"> ${ receb.data_vencimento } </div>
-                    <div class="col-2 override-pills ${ utils.font().shouldBeBolder(receb.valor_aberto) } fs-7"> ${ utils.calc().ptBRL(receb.valor_aberto) } </div>
-                    <div class="col-2 override-pills ${ utils.font().shouldBeBolder(receb.valor_cancelado) } fs-7"> ${ utils.calc().ptBRL(receb.valor_cancelado) } </div>
-                    <div class="col-2 override-pills ${ utils.font().shouldBeBolder(receb.valor_recebido) } fs-7"> ${ utils.calc().ptBRL(receb.valor_recebido) } </div>
-                </div>
-            `)
+
+                    <div class="d-flex justify-content-stretch">
+                        <div id="cardClienteFn${ ccontrato.id() }" class="card w-100">
+                            <div class="card-header">
+                                <div class="row d-flex align-items-center pt-1 pb-1 fw-bolder">
+                                    <div class="col-1"><span class="ps-2"><i class="fas fa-donate"></i></span></div>
+                                    <div class="col-1 override-pills fs-7">ID</div>
+                                    <div class="col-2 override-pills fs-7">VENCIMENTO</div>
+                                    <div class="col-2 override-pills fs-7">ABERTO</div>
+                                    <div class="col-2 override-pills fs-7">CANCELADO</div>
+                                    <div class="col-2 override-pills fs-7">RECEBIDO</div>
+                                    <div class="col-2 override-pills fs-7">BAIXADO</div>
+                                </div>
+                            </div>
+                            <div id="contentClienteFn${ ccontrato.id() }" class="card-body pt-1 pb-1" style="max-height: 20rem; overflow-x: hidden; overflow-y: auto;">
+                            </div>
+                        </div>
+                    </div>
+                `)
+            )
+
+            ccontrato.prepare()
+            ccontrato.request()
+            ccontrato.setContainer($("#clienteModal"))
         }
     }
     else {
-        $(`div[id="contentClienteFn"]`).append(elements.empty)
+        limparClienteContratos()
     }
 }
+
 /**
  EXIBIR LISTAS -->>
  */
-
-
-
-function preencherCards() {
-
-    let vencidos = fnCategorizados['vencidos']
-    let emAberto = fnCategorizados['em_aberto']
-    let pagos = fnCategorizados['pagos']
-    let cancelados = fnCategorizados['cancelados']
-
-    $(`span[id="fnVencidosQuatidade"]`).html(`Vencidos (${ vencidos.length })`)
-    $(`p[id="fnVencidosValor"]`).html(utils.calc().ptBRL(utils.calc().accumulate(vencidos, 'valor_aberto')))
-
-    $(`span[id="fnEmAbertoQuatidade"]`).html(`Em Aberto (${ emAberto.length })`)
-    $(`p[id="fnEmAbertoValor"]`).html(utils.calc().ptBRL(utils.calc().accumulate(emAberto, 'valor_aberto')))
-
-    $(`span[id="fnPagosQuatidade"]`).html(`Pagos (${ pagos.length })`)
-    $(`p[id="fnPagosValor"]`).html(utils.calc().ptBRL(utils.calc().accumulate(pagos, 'valor_recebido')))
-
-    $(`span[id="fnCanceladosQuatidade"]`).html(`Cancelados (${ cancelados.length })`)
-    $(`p[id="fnCanceladosValor"]`).html(utils.calc().ptBRL(utils.calc().accumulate(cancelados, 'valor_cancelado')))
-
-    fnVencidosCard.stopLoading()
-    fnEmAbertoCard.stopLoading()
-    fnPagosCard.stopLoading()
-    fnCanceladosCard.stopLoading()
-}
 
 
 
@@ -214,8 +232,8 @@ function limparClientesListados() {
     $(`div[id="contentListaDeClientes"]`).html(``)
 }
 
-function limparRecebimentosListados() {
-    $(`div[id="contentClienteFn"]`).html(``)
+function limparClienteContratos() {
+    $(`div[id="accordionContratos"]`).html(``)
 }
 /**
  LIMPAR ELEMENTOS -->>

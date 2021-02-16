@@ -56,6 +56,8 @@ const utils = {
             now:        now,
             todayNow:   todayNow,
 
+            isValid:    () => (dateString != 'Invalid Date'),
+
             object: () => { return new Date(dateString) },
             string: () => { return (new Date(dateString)).toLocaleDateString() }
         }
@@ -63,7 +65,7 @@ const utils = {
 
 
     calc: () => {
-        
+
         return {
 
             accumulate: (arr, key) => {

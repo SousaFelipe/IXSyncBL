@@ -105,14 +105,14 @@
 
     <!-- <<MODAL CLIENTE -->
     <div class="modal fade align-items-center" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen-md-down modal-lg">
+        <div class="modal-dialog modal-fullscreen">
             <div class="modal-content ms-0">
                 <input type="hidden" name="id_cliente" >
                 <div class="modal-header border-0">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body ixs-text-dark">
-                    <div class="d-flex flex-column w-100">
+                    <div class="d-flex flex-column align-items-center w-100">
 
                         <div class="d-flex justify-content-center text-uppercase mb-3">
                             <div class="d-flex flex-column justify-content-center align-items-center lh-1">
@@ -122,92 +122,12 @@
                             </div>
                         </div>
 
-                        <div class="d-flex flex-column w-100 ms-0 me-0 mt-3 p-0">
+                        <div class="row d-flex justify-content-center align-items-center w-100 h-100">
+                            <div class="col-12 col-sm-12 col-md-11 col-lg-10 col-xl-9 col-xxl-7">
+                                <div id="accordionContratos" class="accordion d-flex flex-column justify-content-stretch w-100">
 
-                            <div class="row d-flex justify-content-stretch">
-                                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                                    <div id="fnVencidosCard" class="card mb-sm-3 mb-md-3 clickable">
-                                        <div class="d-flex justify-content-center align-items-center bg-white w-100 h-100 rounded position-absolute">
-                                            <div class="spinner-border ixs-text-danger" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <span class="d-flex align-items-center opacity-75">
-                                                <i class="fas fa-exclamation-triangle ixs-text-danger"></i>
-                                                <span id="fnVencidosQuatidade" class="ms-2"></span>
-                                            </span>
-                                            <p id="fnVencidosValor" class="card-text h4"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                                    <div id="fnEmAbertoCard" class="card clickable">
-                                        <div class="d-flex justify-content-center align-items-center w-100 h-100 rounded position-absolute">
-                                            <div class="spinner-border ixs-text-primary" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <span class="d-flex align-items-center opacity-75">
-                                                <i class="fas fa-thumbs-up ixs-text-primary"></i>
-                                                <span id="fnEmAbertoQuatidade" class="ms-2"></span>
-                                            </span>
-                                            <p id="fnEmAbertoValor" class="card-text h4"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                                    <div id="fnPagosCard" class="card mb-sm-3 mb-md-3 clickable">
-                                        <div class="d-flex justify-content-center align-items-center w-100 h-100 rounded position-absolute">
-                                            <div class="spinner-border text-success" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <span class="d-flex align-items-center opacity-75">
-                                                <i class="fas fa-money-bill-wave text-success"></i>
-                                                <span id="fnPagosQuatidade" class="ms-2"></span>
-                                            </span>
-                                            <p id="fnPagosValor" class="card-text h4"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                                    <div id="fnCanceladosCard" class="card clickable">
-                                        <div class="d-flex justify-content-center align-items-center w-100 h-100 rounded position-absolute">
-                                            <div class="spinner-border text-dark" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <span class="d-flex align-items-center opacity-75">
-                                                <i class="fas fa-thumbs-down"></i>
-                                                <span id="fnCanceladosQuatidade" class="ms-2"></span>
-                                            </span>
-                                            <p id="fnCanceladosValor" class="card-text h4"></p>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-    
-                            <div class="d-flex justify-content-stretch">
-                                <div id="cardClienteFn" class="card w-100">
-                                    <div class="card-header">
-                                        <div class="row pt-1 pb-1 fw-bolder">
-                                            <div class="col-1">PG</div>
-                                            <div class="col-2 override-pills fs-7">ID</div>
-                                            <div class="col-3 override-pills fs-7">VENCIMENTO</div>
-                                            <div class="col-2 override-pills fs-7">ABERTO</div>
-                                            <div class="col-2 override-pills fs-7">CANCELADO</div>
-                                            <div class="col-2 override-pills fs-7">RECEBIDO</div>
-                                        </div>
-                                    </div>
-                                    <div id="contentClienteFn" class="card-body pt-1 pb-1" style="max-height: 14rem; overflow-x: hidden; overflow-y: auto;">
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
 
                     </div>
@@ -231,6 +151,7 @@
     <script src="{{ asset('js/components/Request.js') }}"></script>
     <script src="{{ asset('js/components/Card.js') }}"></script>
     <script src="{{ asset('js/models/Recebimento.js') }}"></script>
+    <script src="{{ asset('js/models/ClienteContrato.js') }}"></script>
     <script src="{{ asset('js/html/elements.js') }}"></script>
     <script src="{{ asset('js/pages/caixa.js') }}"></script>
 @endsection
