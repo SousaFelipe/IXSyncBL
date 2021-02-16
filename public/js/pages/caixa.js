@@ -7,28 +7,20 @@ let fnCategorizados = []
 
 
 let fnVencidosCard = new Card('div[id="fnVencidosCard"]')
-    .click(() => {
-        alternaBordaCardClienteFn('danger')
-        exibirRecebimentos('vencidos')
-    })
+    .color('danger')
+    .click(() => exibirRecebimentos('vencidos'))
 
 let fnEmAbertoCard = new Card('div[id="fnEmAbertoCard"]')
-    .click(() => {
-        alternaBordaCardClienteFn('info')
-        exibirRecebimentos('em_aberto')
-    })
+    .color('primary')
+    .click(() => exibirRecebimentos('em_aberto'))
 
 let fnPagosCard = new Card('div[id="fnPagosCard"]')
-    .click(() => {
-        alternaBordaCardClienteFn('success')
-        exibirRecebimentos('pagos')
-    })
+    .color('success')
+    .click(() => exibirRecebimentos('pagos'))
 
 let fnCanceladosCard = new Card('div[id="fnCanceladosCard"]')
-    .click(() => {
-        alternaBordaCardClienteFn('secondary')
-        exibirRecebimentos('cancelados')
-    })
+    .color('secondary')
+    .click(() => exibirRecebimentos('cancelados'))
 
 
 
@@ -124,13 +116,13 @@ function exibirListaDeClientes(clientes) {
     if (clientes.length > 0) {
         for (let i = 0; i < clientes.length; i++) {
             $(`div[id="contentListaDeClientes"]`).append(`
-                <div class="row ps-3 pe-3 pt-1 pb-1 clickable hover-light text-uppercase" onclick="buscarCliente(${ clientes[i].id })">
+                <div class="row ps-3 pe-3 pt-1 pb-1 clickable ixs-hover-light text-uppercase" onclick="buscarCliente(${ clientes[i].id })">
                     <div class="col-auto">
                         <span class="text-${ clientes[i].ativo ? `success` : `danger` }"> <i class="fas fa-user"></i> </span>
                     </div>
-                    <div class="col-4 override-pills fs-7"> ${ clientes[i].razao } </div>
-                    <div class="col-2 override-pills fs-7"> ${ clientes[i].endereco } </div>
-                    <div class="col-5 override-pills fs-7"> ${ clientes[i].complemento } </div>
+                    <div class="col-4 override-pills fs-7" data-bs-toggle="tooltip" data-bs-placement="top" title="${ clientes[i].razao }"> ${ clientes[i].razao } </div>
+                    <div class="col-2 override-pills fs-7" data-bs-toggle="tooltip" data-bs-placement="top" title="${ clientes[i].endereco }"> ${ clientes[i].endereco } </div>
+                    <div class="col-5 override-pills fs-7" data-bs-toggle="tooltip" data-bs-placement="top" title="${ clientes[i].complemento }"> ${ clientes[i].complemento } </div>
                 </div>
             `)
         }
@@ -219,7 +211,7 @@ function preencherCards() {
  <<-- LIMPAR ELEMENTOS
  */
 function limparClientesListados() {
-    $(`div[id="contentClienteFn"]`).html(``)
+    $(`div[id="contentListaDeClientes"]`).html(``)
 }
 
 function limparRecebimentosListados() {

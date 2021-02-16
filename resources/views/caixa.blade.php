@@ -79,7 +79,7 @@
         </nav>
     </div>
 
-    <div class="row d-flex flex-column align-items-stretch flex-grow-1" style="margin-top: 12%;">
+    <div class="row d-flex flex-column align-items-stretch flex-grow-1" style="margin-top: 10%;">
 
         <div class="col-12 col-sm-8 col-lg-4 d-flex justify-content-center align-items-center align-self-center">
             <div class="fs-1 align-self-center">
@@ -106,34 +106,35 @@
     <!-- <<MODAL CLIENTE -->
     <div class="modal fade align-items-center" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen-md-down modal-lg">
-            <div class="modal-content">
+            <div class="modal-content ms-0">
                 <input type="hidden" name="id_cliente" >
                 <div class="modal-header border-0">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body ixs-text-dark">
                     <div class="d-flex flex-column w-100">
 
                         <div class="d-flex justify-content-center text-uppercase mb-3">
                             <div class="d-flex flex-column justify-content-center align-items-center lh-1">
                                 <span class="fas fa-user fa-2x mt-1 mb-1 text-success"></span>
                                 <p id="razao" class="h3 ui-text-primary"></p>
-                                <p id="endereco" class="h6 ui-text-secondary"></p>
+                                <p id="endereco" class="h6 ui-text-secondary ixs-text-secondary"></p>
                             </div>
                         </div>
 
-                        <div class="d-flex flex-column w-100 m-0 p-0">
-                            <div class="row d-flex justify-content-stretch mb-3">
+                        <div class="d-flex flex-column w-100 ms-0 me-0 mt-3 p-0">
+
+                            <div class="row d-flex justify-content-stretch">
                                 <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                                    <div id="fnVencidosCard" class="card text-white bg-danger border-0 mb-sm-3 mb-md-3 clickable">
-                                        <div class="d-flex justify-content-center align-items-center bg-danger w-100 h-100 rounded position-absolute">
-                                            <div class="spinner-border text-light" role="status">
+                                    <div id="fnVencidosCard" class="card mb-sm-3 mb-md-3 clickable">
+                                        <div class="d-flex justify-content-center align-items-center bg-white w-100 h-100 rounded position-absolute">
+                                            <div class="spinner-border ixs-text-danger" role="status">
                                                 <span class="sr-only">Loading...</span>
                                             </div>
                                         </div>
                                         <div class="card-body">
                                             <span class="d-flex align-items-center opacity-75">
-                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <i class="fas fa-exclamation-triangle ixs-text-danger"></i>
                                                 <span id="fnVencidosQuatidade" class="ms-2"></span>
                                             </span>
                                             <p id="fnVencidosValor" class="card-text h4"></p>
@@ -141,15 +142,15 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                                    <div id="fnEmAbertoCard" class="card text-white bg-info border-0 clickable">
-                                        <div class="d-flex justify-content-center align-items-center bg-info w-100 h-100 rounded position-absolute">
-                                            <div class="spinner-border text-light" role="status">
+                                    <div id="fnEmAbertoCard" class="card clickable">
+                                        <div class="d-flex justify-content-center align-items-center w-100 h-100 rounded position-absolute">
+                                            <div class="spinner-border ixs-text-primary" role="status">
                                                 <span class="sr-only">Loading...</span>
                                             </div>
                                         </div>
                                         <div class="card-body">
                                             <span class="d-flex align-items-center opacity-75">
-                                                <i class="fas fa-thumbs-up"></i>
+                                                <i class="fas fa-thumbs-up ixs-text-primary"></i>
                                                 <span id="fnEmAbertoQuatidade" class="ms-2"></span>
                                             </span>
                                             <p id="fnEmAbertoValor" class="card-text h4"></p>
@@ -157,15 +158,15 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                                    <div id="fnPagosCard" class="card text-white bg-success border-0 mb-sm-3 mb-md-3 clickable">
-                                        <div class="d-flex justify-content-center align-items-center bg-success w-100 h-100 rounded position-absolute">
-                                            <div class="spinner-border text-light" role="status">
+                                    <div id="fnPagosCard" class="card mb-sm-3 mb-md-3 clickable">
+                                        <div class="d-flex justify-content-center align-items-center w-100 h-100 rounded position-absolute">
+                                            <div class="spinner-border text-success" role="status">
                                                 <span class="sr-only">Loading...</span>
                                             </div>
                                         </div>
                                         <div class="card-body">
                                             <span class="d-flex align-items-center opacity-75">
-                                                <i class="fas fa-money-bill-wave"></i>
+                                                <i class="fas fa-money-bill-wave text-success"></i>
                                                 <span id="fnPagosQuatidade" class="ms-2"></span>
                                             </span>
                                             <p id="fnPagosValor" class="card-text h4"></p>
@@ -173,8 +174,8 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                                    <div id="fnCanceladosCard" class="card ui-text-primary bg-light border-0 clickable">
-                                        <div class="d-flex justify-content-center align-items-center bg-light w-100 h-100 rounded position-absolute">
+                                    <div id="fnCanceladosCard" class="card clickable">
+                                        <div class="d-flex justify-content-center align-items-center w-100 h-100 rounded position-absolute">
                                             <div class="spinner-border text-dark" role="status">
                                                 <span class="sr-only">Loading...</span>
                                             </div>
@@ -191,7 +192,7 @@
                             </div>
     
                             <div class="d-flex justify-content-stretch">
-                                <div id="cardClienteFn" class="card border-danger w-100">
+                                <div id="cardClienteFn" class="card w-100">
                                     <div class="card-header">
                                         <div class="row pt-1 pb-1 fw-bolder">
                                             <div class="col-1">PG</div>
@@ -206,6 +207,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                     </div>

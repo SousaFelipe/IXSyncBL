@@ -17,22 +17,53 @@
  * CORES
  */
 
-.ui-light {
-    background-color: var(--ui-color-light) !important;
+.ixs-light {
+    background-color: var(--bs-white) !important;
 }
 
-.hover-light:hover {
-    background-color: var(--ui-color-light) !important;
+.ixs-hover-light:hover {
+    transition:         150ms;
+    background-color:   var(--bs-light) !important;
 }
 
 
 
-.ui-text-primary {
-    color: var(--ui-color-text-primary) !important;
+.ixs-text-dark {
+    color: var(--bs-dark) !important;
 }
 
-.ui-text-secondary {
-    color: var(--ui-color-text-secondary) !important;
+.ixs-text-primary {
+    color: var(--bs-primary) !important;
+}
+
+.ixs-text-secondary {
+    color: var(--bs-secondary) !important;
+}
+
+.ixs-text-danger {
+    color: var(--bs-danger) !important;
+}
+
+.ixs-text-disabled {
+    color: var(--bs-gray) !important;
+}
+
+
+
+.ixs-border-primary {
+    border: 1px solid var(--bs-primary);
+}
+
+.ixs-border-secondary {
+    border: 1px solid var(--bs-secondary);
+}
+
+.ixs-border-success {
+    border: 1px solid var(--bs-success);
+}
+
+.ixs-border-danger {
+    border: 1px solid var(--bs-danger);
 }
 
 

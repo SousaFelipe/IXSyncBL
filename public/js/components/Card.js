@@ -6,17 +6,25 @@ class Card {
     
 
     constructor(element) {
-
         this.element = $(element)
         this.loader = this.element.children(':first')
+    }
+
+
+
+    color(color) {
+
+        this.element.css({ transition: '200ms' })
 
         this.element.mouseenter(function () {
-            $(this).addClass('ui-shadow')
+            $(this).addClass(`ixs-border-${ color }`)
         })
 
         this.element.mouseleave(function () {
-            $(this).removeClass('ui-shadow')
+            $(this).removeClass(`ixs-border-${ color }`)
         })
+
+        return this
     }
 
 
