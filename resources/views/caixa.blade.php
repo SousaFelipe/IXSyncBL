@@ -104,6 +104,9 @@
 
     </div>
 
+    <div class="d-flex bg-light align-self-end w-100" style="height: 4rem;">
+
+    </div>
 
     <!-- <<MODAL CLIENTE -->
     <div class="modal fade align-items-center" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
@@ -116,19 +119,17 @@
                 <div class="modal-body ixs-text-dark">
                     <div class="d-flex flex-column align-items-center w-100">
 
-                        <div class="d-flex justify-content-center text-uppercase mb-3">
+                        <div class="d-flex justify-content-center text-uppercase">
                             <div class="d-flex flex-column justify-content-center align-items-center lh-1">
-                                <span class="fas fa-user fa-2x mt-1 mb-1 text-success"></span>
+                                <span class="fas fa-user fa-2x mt-1 mb-1 text-primary"></span>
                                 <p id="razao" class="h3 ui-text-primary"></p>
                                 <p id="endereco" class="h6 ui-text-secondary ixs-text-secondary"></p>
                             </div>
                         </div>
 
-                        <div class="row d-flex justify-content-center align-items-center w-100 h-100">
+                        <div class="row d-flex justify-content-center align-items-center w-100 h-100 mt-5">
                             <div class="col-12 col-sm-12 col-md-11 col-lg-10 col-xl-9 col-xxl-7">
-                                <div id="accordionContratos" class="accordion d-flex flex-column justify-content-stretch w-100">
-
-                                </div>
+                                <div id="clienteCartoes" class="accordion d-flex flex-column justify-content-stretch w-100"></div>
                             </div>
                         </div>
 
@@ -138,7 +139,6 @@
         </div>
     </div>
     <!-- MODAL CLIENTE>> -->
-
 
     <!--<< LOGOUT FORM -->
     <form action="{{ route('logout') }}" method="post"> @csrf </form>
@@ -151,7 +151,10 @@
 
 @section('scripts')
     <script src="{{ asset('js/components/Request.js') }}"></script>
+    <script src="{{ asset('js/components/Bootstrap.js') }}"></script>
+    <script src="{{ asset('js/components/Icon.js') }}"></script>
     <script src="{{ asset('js/components/Card.js') }}"></script>
+    <script src="{{ asset('js/components/Card2.js') }}"></script>
     <script src="{{ asset('js/html/elements.js') }}"></script>
     <script src="{{ asset('js/models/Recebimento.js') }}"></script>
     <script src="{{ asset('js/models/ClienteContrato.js') }}"></script>

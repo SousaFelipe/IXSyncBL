@@ -70,4 +70,15 @@ class Recebimento extends BaseModel
 
         return $filtrados;
     }
+
+
+
+    public static function statusGrid($queryType, $queryValue)
+    {
+        return [
+            'TB' => 'fn_areceber.' . $queryType,
+            'OP' => '=',
+            'P'  => $queryValue
+        ];
+    }
 }

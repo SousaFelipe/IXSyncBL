@@ -146,6 +146,6 @@ img[class*="avatar"] {
 @media (min-width: 1200px) {
     :root {
         --ui-card-md-w:         30em;
-        --search-content-with:  600px;
+        --search-content-with:  700px;
     }
 }

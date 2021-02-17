@@ -1,13 +1,25 @@
 
 
 
+let resumoCliente = {
+    model: {},
+    contratos: []
+}
+
+
+
 $(document).ready(function () {
+
+    $("#clienteModal").on("hidden.bs.modal", function () {
+        $('input[id="search"]').focus()
+        $('div[id="clienteCartoes"]').html('')
+    })
 
     $("#search").on("input", function() {
 
         var input = $(this)
         var value = input.val()
-    
+
         if (value.toString().length >= 3) {
             listarClientes(value)
         }
@@ -15,11 +27,7 @@ $(document).ready(function () {
             limparClientesListados()
         }
     })
-    
-    $("#clienteModal").on("hidden.bs.modal", function () {
-        $("#search").focus()
-    })
-    
+
     $('.search-group').on("mouseenter", function () {
         if ($("#search").val().length >= 3) {
             $("#search").focus()
@@ -39,9 +47,7 @@ function listarClientes(request) {
             exibirListaDeClientes(response.clientes)
             alternaIconeDeBusca('search-icon', false)
         })
-        .fail(error => {
-            console.log(error)
-        })
+        .fail(error => console.log(error))
         .get({
             vbusca: request,
             tbusca: (utils.isNumber(request)) ? `cnpj_cpf` : `razao`
@@ -55,7 +61,8 @@ function buscarCliente(id) {
     new Request('clientes/buscar/{cliente}')
         .csrf()
         .done(response => {
-            exibirModalCliente(response)
+            resumoCliente.model = response
+            exibirModalCliente()
         })
         .fail(error => {
             console.log(error)
@@ -67,15 +74,38 @@ function buscarCliente(id) {
 
 
 
-function listarContratos(id) {
+function listarContratos() {
 
     new Request('cre/contratos/listar/{cliente}')
         .csrf()
         .done(response => {
+            resumoCliente.contratos = response
+
+
             exibirContratos(response)
         })
         .get({
-            cliente: id
+            cliente: resumoCliente.model.id
+        })
+}
+
+
+
+function listarFinanceiro() {
+
+}
+
+
+
+function buscarConsumo() {
+
+    new Request('provedor/logins/{cliente}')
+        .csrf()
+        .done(response => {
+            console.log(response)
+        })
+        .get({
+            cliente: resumoCliente.model.id
         })
 }
 
@@ -96,16 +126,18 @@ function exibirListaDeClientes(clientes) {
 
 
 
-function exibirModalCliente(cliente) {
+function exibirModalCliente() {
 
-    $('input[name="id_cliente"]').val(cliente.id)
-    $('p[id="razao"]').html(cliente.razao)
-    $('p[id="endereco"]').html(`${ cliente.endereco }, ${ (cliente.numero || `SN`) }, ${ cliente.complemento }`)
+    $('input[name="id_cliente"]').val(resumoCliente.model.id)
+    $('p[id="razao"]').html(resumoCliente.model.razao)
+    $('p[id="endereco"]').html(`${ resumoCliente.model.endereco }, ${ (resumoCliente.model.numero || `SN`) }, ${ resumoCliente.model.complemento }`)
+
+    listarContratos()
+    listarFinanceiro()
+    buscarConsumo()
 
     var modal = new bootstrap.Modal(document.getElementById('clienteModal'), {})
     modal.show()
-
-    listarContratos(cliente.id)
 }
 
 
@@ -116,16 +148,31 @@ function exibirContratos(contratos) {
     let ccontrato = null
     let ccurrhtml = null
 
+
+        $(`div[id="clienteCartoes"]`).append(
+            new Bootstrap().children(
+                new Bootstrap().childrens([
+                    new Card2().icon(new Icon({ name: `file-invoice-dollar`, size: `2x` })).title(`Contrato`).render(),
+                    new Card2().icon(new Icon({ name: `hand-holding-usd`, size: `2x` })).title(`Financeiro`).render(),
+                    new Card2().icon(new Icon({ name: `chart-line`, size: `2x` })).title(`Consumo`).render(),
+                ]).col('12', '12', '4', '4')
+            ).row()
+        )
+
     if (contratos.length > 0) {
         for (let i = 0; i < contratos.length; i++) {
 
-            ccontrato = new ClienteContrato(contratos[i])
-            ccurrhtml = ccontrato.html(components.listaDeCartoes(ccontrato.attr('id')))
+            //ccontrato = new ClienteContrato(contratos[i])
 
-            $(`div[id="accordionContratos"]`).append(ccurrhtml)
+            //ccurrhtml = ccontrato.html(
 
-            ccontrato.request()
-            ccontrato.exit('clienteModal')
+            //)
+
+            //$(`div[id="accordionContratos"]`).append(ccurrhtml)
+
+
+            //ccontrato.request()
+            //ccontrato.exit('clienteModal')
         }
     }
     else {

@@ -15,24 +15,25 @@ class CreController extends Controller
             return $this->unauthorized();
         }
 
-        $grid1 = [
+        $grid = [
             'TB' => 'fn_areceber.id_cliente',
             'OP' => '=',
             'P'  => $request->cliente
         ];
 
-        $grid2 = [
-            'TB' => 'fn_areceber.id_contrato',
-            'OP' => '=',
-            'P'  => $request->contrato
-        ];
+        $emAberto   = $recebimento->grid([ $grid, Recebimento::statusGrid('status', 'A') ])->orderBy('data_vencimento', 'desc')->in(1)->receive();
+        $recebidos  = $recebimento->grid([ $grid, Recebimento::statusGrid('status', 'R') ])->orderBy('data_vencimento', 'desc')->in(1)->receive();
+        $cancelados = $recebimento->grid([ $grid, Recebimento::statusGrid('status', 'C') ])->orderBy('data_vencimento', 'desc')->in(1)->receive();
 
-        $recebimentos = $recebimento->grid([ $grid1, $grid2 ])
-            ->orderBy('data_vencimento', 'desc')
-            ->in(1)
-            ->receive();
+        $vencidos = Recebimento::filtrarEmAberto($emAberto, true);
+        $emAberto = Recebimento::filtrarEmAberto($emAberto, false);
 
-        $response = self::convertRecursively(Recebimento::categorizados($recebimentos));
+        $response = self::convertRecursively([
+            'vencidos'  => $vencidos,
+            'em_aberto' => $emAberto,
+            'recebidos' => $recebidos,
+            'cancelados'=> $cancelados
+        ]);
 
         return response()->json((count($response) > 0) ? $response : []);
     }

@@ -65,6 +65,24 @@
 
 
 
+.ixs-rounded {
+    border-radius: 50%;
+}
+
+
+
+.ixs-icon-content-sm {
+    width:  36px;
+    height: 36px;
+}
+
+.ixs-icon-content-md {
+    width:  64px;
+    height: 64px;
+}
+
+
+
 .skeleton.loading {
     position:           relative;
     overflow:           hidden;

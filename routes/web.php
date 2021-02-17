@@ -52,3 +52,10 @@ Route::prefix('/cre')->group(function () {
     });
 
 });
+
+
+Route::prefix('/provedor')->group(function () {
+
+    Route::get('/logins/{cliente}', [App\Http\Controllers\Provedor\LoginController::class, 'listar']);
+
+});

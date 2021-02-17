@@ -15,13 +15,28 @@ class ClienteContratoController extends Controller
             return $this->unauthorized();
         }
 
-        $ccontratos = $ccontrato->when('id_cliente', '=', $request->cliente)
+        $grid1 = [
+            'TB' => 'cliente_contrato.id_cliente',
+            'OP' => '=',
+            'P'  => $request->cliente
+        ];
+
+        $grid2 = [
+            'TB' => 'cliente_contrato.status',
+            'OP' => '=',
+            'P'  => 'A'
+        ];
+
+        $ccontratos = $ccontrato->grid([ $grid1, $grid2 ])
             ->orderBy('data_ativacao', 'desc')
             ->in(1)
             ->receive();
 
         $response = self::convertRecursively($ccontratos);
 
-        return response()->json((count($response) > 0) ? $response : []);
+        return response()->json([
+            'contratos'  => $response,
+            'quantidade' => count($response)
+        ]);
     }
 }
