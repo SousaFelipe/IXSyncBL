@@ -1,29 +1,35 @@
 
 
 
+$(document).ready(function () {
 
-let fnCategorizados = []
+    $("#search").on("input", function() {
 
+        var input = $(this)
+        var value = input.val()
+    
+        if (value.toString().length >= 3) {
+            listarClientes(value)
+        }
+        else {
+            limparClientesListados()
+        }
+    })
+    
+    $("#clienteModal").on("hidden.bs.modal", function () {
+        $("#search").focus()
+    })
+    
+    $('.search-group').on("mouseenter", function () {
+        if ($("#search").val().length >= 3) {
+            $("#search").focus()
+        }
+    })
 
-
-$("#search").on("input", function() {
-
-    var input = $(this)
-    var value = input.val()
-
-    if (value.toString().length >= 3) {
-        listarClientes(value)
-    }
-    else {
-        limparClientesListados()
-    }
 })
 
 
 
-/**
- <<-- REQUISIÇÕES À API
- */
 function listarClientes(request) {
 
     new Request('clientes/listar/{vbusca}/{tbusca}')
@@ -42,6 +48,8 @@ function listarClientes(request) {
         })
 }
 
+
+
 function buscarCliente(id) {
 
     new Request('clientes/buscar/{cliente}')
@@ -57,6 +65,8 @@ function buscarCliente(id) {
         })
 }
 
+
+
 function listarContratos(id) {
 
     new Request('cre/contratos/listar/{cliente}')
@@ -69,15 +79,8 @@ function listarContratos(id) {
         })
 }
 
-/**
- REQUISIÇÕES Á API -->>
- */
 
 
-
-/**
- <<-- EXIBIR LISTAS
- */
 function exibirListaDeClientes(clientes) {
     limparClientesListados()
 
@@ -100,6 +103,8 @@ function exibirListaDeClientes(clientes) {
     }
 }
 
+
+
 function exibirModalCliente(cliente) {
 
     $('input[name="id_cliente"]').val(cliente.id)
@@ -112,13 +117,17 @@ function exibirModalCliente(cliente) {
     listarContratos(cliente.id)
 }
 
+
+
 function exibirContratos(contratos) {
     limparClienteContratos()
+
+    let ccontrato = null
 
     if (contratos.length > 0) {
         for (let i = 0; i < contratos.length; i++) {
 
-            let ccontrato = new ClienteContrato(contratos[i])
+            ccontrato = new ClienteContrato(contratos[i])
 
             $(`div[id="accordionContratos"]`).append(
                 ccontrato.accordion(i, `
@@ -211,7 +220,7 @@ function exibirContratos(contratos) {
 
             ccontrato.prepare()
             ccontrato.request()
-            ccontrato.setContainer($("#clienteModal"))
+            ccontrato.dismissOnClose('clienteModal')
         }
     }
     else {
@@ -219,35 +228,21 @@ function exibirContratos(contratos) {
     }
 }
 
-/**
- EXIBIR LISTAS -->>
- */
 
 
-
-/**
- <<-- LIMPAR ELEMENTOS
- */
 function limparClientesListados() {
     $(`div[id="contentListaDeClientes"]`).html(``)
 }
 
+
+
 function limparClienteContratos() {
     $(`div[id="accordionContratos"]`).html(``)
 }
-/**
- LIMPAR ELEMENTOS -->>
- */
 
 
 
 function alternaIconeDeBusca(element, loading = true) {
     $(`span[id="${ element }"]`).html('')
     $(`span[id="${ element }"]`).html( loading ? elements.spinner : elements.icon('search') )
-}
-
-
-function alternaBordaCardClienteFn(cor) {
-    $('div[id="cardClienteFn"]').removeClass()
-    $('div[id="cardClienteFn"]').addClass(`card w-100 border-${ cor }`)
 }

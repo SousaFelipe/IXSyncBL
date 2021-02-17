@@ -56,21 +56,23 @@
                 </div>
                 <div class="col-8 text-end">
                     <div class="d-flex justify-content-end align-items-center">
-                        <div class="pe-2 lh-1">
-                            <span class="text-end">{{ auth()->user()->firstAndLastName() }}</span><br>
-                            <span class="text-secondary text-end">{{ auth()->user()->position() }}</span>
-                        </div>
                         <div class="ml-1">
                             <div class="dropdown">
-                                <span id="imageDropdown" class="clickable" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ auth()->user()->avatar() }}" class="avatar">
-                                </span>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="imageDropdown">
-                                    <li><span class="dropdown-item clickable">Meu perfil</span></li>
-                                    <li><span class="dropdown-item clickable">Configurações</span></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li class="clickable" onclick="app.submitForm()"><span class="dropdown-item text-danger">Sair</span></li>
-                                </ul>
+                                <div class="d-flex align-items-center ps-3">
+                                    <div class="ps-3 pe-2 lh-1">
+                                        <span class="text-end">{{ auth()->user()->firstAndLastName() }}</span><br>
+                                        <span class="text-secondary text-end">{{ auth()->user()->position() }}</span>
+                                    </div>
+                                    <span id="imageDropdown" class="clickable" data-bs-toggle="dropdown" aria-expanded="true" data-bs-reference="parent">
+                                        <img src="{{ auth()->user()->avatar() }}" class="avatar">
+                                    </span>
+                                    <ul class="dropdown-menu dropdown-menu-end position-absolute mt-1" aria-labelledby="imageDropdown">
+                                        <li><span class="dropdown-item clickable">Meu perfil</span></li>
+                                        <li><span class="dropdown-item clickable">Configurações</span></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li class="clickable" onclick="app.submitForm()"><span class="dropdown-item text-danger">Sair</span></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -150,8 +152,9 @@
 @section('scripts')
     <script src="{{ asset('js/components/Request.js') }}"></script>
     <script src="{{ asset('js/components/Card.js') }}"></script>
+    <script src="{{ asset('js/html/elements.js') }}"></script>
     <script src="{{ asset('js/models/Recebimento.js') }}"></script>
     <script src="{{ asset('js/models/ClienteContrato.js') }}"></script>
-    <script src="{{ asset('js/html/elements.js') }}"></script>
-    <script src="{{ asset('js/pages/caixa.js') }}"></script>
+    <script src="{{ asset('js/pages/Caixa/components.js') }}"></script>
+    <script src="{{ asset('js/pages/Caixa/main.js') }}"></script>
 @endsection

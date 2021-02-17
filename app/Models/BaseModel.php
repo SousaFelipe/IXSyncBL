@@ -20,6 +20,9 @@ class BaseModel extends Model
     private $max        = 100;
     private $orderBy    = false;
     private $order      = 'asc';
+    private $grid       = null;
+    private $advanced   = false;
+
 
 
     /**
@@ -31,9 +34,21 @@ class BaseModel extends Model
      */
     public function when($qtype, $oper, $query)
     {
+        $this->advanced = false;
         $this->qtype = $this->srcname . '.' . (($qtype == '') ? 'id' : $qtype);
         $this->oper  = $oper;
         $this->query = $query;
+        return $this;
+    }
+
+
+
+    /**
+     * @param array $grid A grade contendo as condições de busca
+     */
+    public function grid(array $grid) {
+        $this->advanced = true;
+        $this->grid = $grid;
         return $this;
     }
 
@@ -100,15 +115,26 @@ class BaseModel extends Model
             $this->orderBy = $this->srcname . '.id';
         }
 
-        $this->when = array(
-            'qtype'     => $this->qtype,
-            'query'     => $this->query,
-            'oper'      => $this->oper,
-            'page'      => $this->in,
-            'rp'        => $this->max,
-            'sortname'  => $this->orderBy,
-            'sortorder' => $this->order
-        );
+        if ($this->advanced) {
+            $this->when = array(
+                'grid_param' => json_encode($this->grid),
+                'page'       => $this->in,
+                'rp'         => $this->max,
+                'sortname'   => $this->orderBy,
+                'sortorder'  => $this->order
+            );
+        }
+        else {
+            $this->when = array(
+                'qtype'     => $this->qtype,
+                'query'     => $this->query,
+                'oper'      => $this->oper,
+                'page'      => $this->in,
+                'rp'        => $this->max,
+                'sortname'  => $this->orderBy,
+                'sortorder' => $this->order
+            );
+        }
     }
 
 

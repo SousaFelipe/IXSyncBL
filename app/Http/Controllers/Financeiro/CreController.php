@@ -15,7 +15,19 @@ class CreController extends Controller
             return $this->unauthorized();
         }
 
-        $recebimentos = $recebimento->when('id_cliente', '=', $request->cliente)
+        $grid1 = [
+            'TB' => 'fn_areceber.id_cliente',
+            'OP' => '=',
+            'P'  => $request->cliente
+        ];
+
+        $grid2 = [
+            'TB' => 'fn_areceber.id_contrato',
+            'OP' => '=',
+            'P'  => $request->contrato
+        ];
+
+        $recebimentos = $recebimento->grid([ $grid1, $grid2 ])
             ->orderBy('data_vencimento', 'desc')
             ->in(1)
             ->receive();

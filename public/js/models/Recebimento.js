@@ -56,19 +56,19 @@ class Recebimento {
 
     dataBaixa() {
 
+        let badge = `<span class="badge rounded-pill bg-secondary">Não</span>`
+
         let baixa = utils.date(
 
             (this.data.pagamento != '')
                 ? this.data.pagamento
                 : (this.data.cancelamento != '')
                     ? this.data.cancelamento
-                    : 'NÃO BAIXADO'
+                    : null
 
         ).string()
 
-        console.log(baixa)
-
-        return utils.date(baixa).isValid() ? baixa : `<span class="badge rounded-pill bg-secondary">Não</span>`
+        return utils.date(baixa).isValid() ? baixa : badge
     }
 
 
