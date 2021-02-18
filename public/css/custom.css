@@ -7,11 +7,11 @@
 
 
 
-#search-content {
+.ixs-form-content {
     width: var(--search-content-with);
 }
 
-.search-group {
+.ixs-form-group {
     display:        flex;
     flex-direction: column;
     border:         none;
@@ -20,19 +20,27 @@
     transition:     300ms;
 }
 
-.search-group:focus-within {
+.ixs-form-group:focus-within {
     background-color:   white;
     -webkit-box-shadow: 1px 1px 0.3rem 0 rgba(0,0,0,0.175);
     -moz-box-shadow:    1px 1px 0.3rem 0 rgba(0,0,0,0.175);
     box-shadow:         1px 1px 0.3rem 0 rgba(0,0,0,0.175);
 }
 
+.ixs-form-label {
+    position:       absolute;
+    margin-left:    -0.2rem;
+    margin-top:     -0.3rem;
+    border-radius:  0.3em;
+    padding:        0rem 0.5rem;
+    font-size:      0.6rem;
+    color:          white;
+}
 
-
-.search {
+.ixs-form {
     display:            flex;
     align-items:        center;
-    padding:            0.375rem 1rem;
+    padding:            0.8rem 1.1rem;
     color:              var(--bs-dark);
     font-size:          1rem;
     font-weight:        400;
@@ -44,23 +52,26 @@
     transition:         border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.search > input {
-    flex-grow:          1;
-    background-color:   transparent;
-    margin:             0em 0em 0em .75em;
-    border:             none;
-}
-
-.search > input:focus {
+.ixs-form > input:focus {
     outline: none;
 }
 
-.search-icon {
+.ixs-form-icon {
     color: var(--ui-color-text-disabled);
 }
 
-.search-control {
-    min-height: calc(1.5em + 1rem + 2px);
+.ixs-form-control {
+    display:            inline-block;
+    flex-grow:          1;
+    justify-self:       stretch;
+    align-self:         center;
+    background-color:   transparent;
+    margin:             0em 0em 0em .75em;
+    border:             none;
+    vertical-align:     middle;
+    overflow:           hidden !important;
+    white-space:        nowrap !important;
+    text-overflow:      ellipsis !important;
 }
 
 

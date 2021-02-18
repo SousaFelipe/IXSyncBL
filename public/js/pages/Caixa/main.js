@@ -15,7 +15,7 @@ $(document).ready(function () {
         $('div[id="clienteCartoes"]').html('')
     })
 
-    $("#search").on("input", function() {
+    $('input[id="search"]').on("input", function() {
 
         var input = $(this)
         var value = input.val()
@@ -28,9 +28,9 @@ $(document).ready(function () {
         }
     })
 
-    $('.search-group').on("mouseenter", function () {
-        if ($("#search").val().length >= 3) {
-            $("#search").focus()
+    $('div[id="search-group"]').on("mouseenter", function () {
+        if ($('input[id="search"]').val().length >= 3) {
+            $('input[id="search"]').focus()
         }
     })
 
@@ -82,7 +82,7 @@ function listarContratos() {
             resumoCliente.contratos = response
 
 
-            exibirContratos(response)
+            exibirContratos(response.contratos)
         })
         .get({
             cliente: resumoCliente.model.id
@@ -102,7 +102,7 @@ function buscarConsumo() {
     new Request('provedor/logins/{cliente}')
         .csrf()
         .done(response => {
-            console.log(response)
+            //console.log(response)
         })
         .get({
             cliente: resumoCliente.model.id
@@ -128,9 +128,15 @@ function exibirListaDeClientes(clientes) {
 
 function exibirModalCliente() {
 
+    let cliente = new Cliente(resumoCliente.model)
+
     $('input[name="id_cliente"]').val(resumoCliente.model.id)
     $('p[id="razao"]').html(resumoCliente.model.razao)
-    $('p[id="endereco"]').html(`${ resumoCliente.model.endereco }, ${ (resumoCliente.model.numero || `SN`) }, ${ resumoCliente.model.complemento }`)
+    $('p[id="endereco"]').html(cliente.enderecoCompleto())
+
+    $('span[id="modalClienteCPF"]').html(cliente.cpf())
+    $('span[id="modalClienteRG"]').html(cliente.rg())
+    $('span[id="modalClienteContato"]').html(cliente.contato())
 
     listarContratos()
     listarFinanceiro()
@@ -148,16 +154,25 @@ function exibirContratos(contratos) {
     let ccontrato = null
     let ccurrhtml = null
 
+    let cardContratoIcon = new Icon({ name: `file-invoice-dollar`, size: `2x` })
+    let cardContrato = new Card2().icon(cardContratoIcon).title(`Contrato`).body(`
+        <button type="button" class="btn btn-sm btn-${ Contrato.status(contratos).cor } flex-grow-1 ms-3 me-3 mt-4" ${ Contrato.status(contratos).disabled }>
+            ${ Contrato.descricao(contratos) }
+        </button>
+    `)
 
-        $(`div[id="clienteCartoes"]`).append(
-            new Bootstrap().children(
-                new Bootstrap().childrens([
-                    new Card2().icon(new Icon({ name: `file-invoice-dollar`, size: `2x` })).title(`Contrato`).render(),
-                    new Card2().icon(new Icon({ name: `hand-holding-usd`, size: `2x` })).title(`Financeiro`).render(),
-                    new Card2().icon(new Icon({ name: `chart-line`, size: `2x` })).title(`Consumo`).render(),
-                ]).col('12', '12', '4', '4')
-            ).row()
-        )
+    let cardFnIcon = new Icon({ name: `hand-holding-usd`, size: `2x` })
+    let cardFn = new Card2().icon(cardFnIcon).title(`Financeiro`).body(`
+        <button type="button" class="btn btn-sm btn-${ Contrato.status(contratos).cor } flex-grow-1 ms-3 me-3 mt-4" ${ Contrato.status(contratos).disabled }>
+            ${ Contrato.descricao(contratos) }
+        </button>
+    `)
+
+    $(`div[id="clienteCartoes"]`).append(
+        new Bootstrap().children(
+            new Bootstrap().childrens([ cardContrato.render(), cardFn.render() ]).col('12', '12', '6', '6')
+        ).row()
+    )
 
     if (contratos.length > 0) {
         for (let i = 0; i < contratos.length; i++) {

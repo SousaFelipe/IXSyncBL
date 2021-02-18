@@ -44,7 +44,9 @@ class Card2 {
                 <div class="card-body d-flex flex-column align-items-center">
                     ${ this.drawIcon() }
                     <span class="text-secondary fw-bolder mt-1">${ this.drawTitle() }</span>
-                    ${ this.drawBody() }
+                    <div class="d-flex justify-content-stretch align-items-center w-100">
+                        ${ this.drawBody() }
+                    </div>
                 </div>
             </div>
         `)

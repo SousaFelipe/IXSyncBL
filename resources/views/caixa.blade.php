@@ -90,13 +90,13 @@
             </div>
         </div>
 
-        <div id="search-content" class="align-self-center">
-            <div class="search-group override-hidden">
-                <div class="search">
-                    <span id="search-icon" class="search-icon d-flex justify-content-center align-items-center">
+        <div class="ixs-form-content align-self-center">
+            <div id="search-group" class="ixs-form-group override-hidden">
+                <div class="ixs-form">
+                    <span id="search-icon" class="ixs-form-icon d-flex justify-content-center align-items-center">
                         <i class="fas fa-search"></i>
                     </span>
-                    <input type="text" id="search" class="search-control search-control-lg" placeholder="Buscar CPF ou nome do cliente..." aria-label="Busca" oncha ="searchForClients()">
+                    <input type="text" id="search" class="ixs-form-control search-control-lg" placeholder="Buscar CPF ou nome do cliente..." aria-label="Busca">
                 </div>
                 <div id="contentListaDeClientes" class="d-flex flex-column"></div>
             </div>
@@ -128,8 +128,45 @@
                         </div>
 
                         <div class="row d-flex justify-content-center align-items-center w-100 h-100 mt-5">
-                            <div class="col-12 col-sm-12 col-md-11 col-lg-10 col-xl-9 col-xxl-7">
-                                <div id="clienteCartoes" class="accordion d-flex flex-column justify-content-stretch w-100"></div>
+                            <div class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6 col-xxl-4">
+                                <div class="d-flex flex-column align-items-stretch">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                            <div class="ixs-form-group override-hidden">
+                                                <span class="ixs-form-label bg-primary">CPF</span>
+                                                <div class="ixs-form">
+                                                    <span class="ixs-form-icon d-flex justify-content-center align-items-center">
+                                                        <i class="fas fa-id-card"></i>
+                                                    </span>
+                                                    <span id="modalClienteCPF" class="ixs-form-control fs-6"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                            <div class="ixs-form-group override-hidden">
+                                                <span class="ixs-form-label bg-primary">RG</span>
+                                                <div class="ixs-form">
+                                                    <span class="ixs-form-icon d-flex justify-content-center align-items-center">
+                                                        <i class="fas fa-fingerprint"></i>
+                                                    </span>
+                                                    <span id="modalClienteRG" class="ixs-form-control fs-6"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                            <div class="ixs-form-group override-hidden">
+                                                <span class="ixs-form-label bg-primary">CONTATO</span>
+                                                <div class="ixs-form">
+                                                    <span class="ixs-form-icon d-flex justify-content-center align-items-center">
+                                                        <i class="fas fa-phone-alt"></i>
+                                                    </span>
+                                                    <span id="modalClienteContato" class="ixs-form-control fs-6"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="clienteCartoes" class="accordion d-flex flex-column justify-content-stretch w-100 mt-5"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -155,7 +192,9 @@
     <script src="{{ asset('js/components/Icon.js') }}"></script>
     <script src="{{ asset('js/components/Card.js') }}"></script>
     <script src="{{ asset('js/components/Card2.js') }}"></script>
+    <script src="{{ asset('js/components/Contrato.js') }}"></script>
     <script src="{{ asset('js/html/elements.js') }}"></script>
+    <script src="{{ asset('js/models/Cliente.js') }}"></script>
     <script src="{{ asset('js/models/Recebimento.js') }}"></script>
     <script src="{{ asset('js/models/ClienteContrato.js') }}"></script>
     <script src="{{ asset('js/pages/Caixa/components.js') }}"></script>
