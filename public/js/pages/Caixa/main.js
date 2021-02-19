@@ -1,14 +1,6 @@
 
 
 
-let resumoCliente = {
-    model: {},
-    contratos: [],
-    financeiro: []
-}
-
-
-
 $(document).ready(function () {
 
     $("#clienteModal").on("hidden.bs.modal", function () {
@@ -34,13 +26,11 @@ $(document).ready(function () {
             $('input[id="search"]').focus()
         }
     })
-
 })
 
 
 
 function listarClientes(request) {
-
     new Request('clientes/listar/{vbusca}/{tbusca}')
         .csrf()
         .beforeSend(alternaIconeDeBusca('search-icon'))
@@ -58,42 +48,101 @@ function listarClientes(request) {
 
 
 function buscarCliente(id) {
-
     new Request('clientes/buscar/{cliente}')
         .csrf()
-        .done(response => {
-            resumoCliente.model = response
-            exibirModalCliente()
-        })
-        .fail(error => {
-            console.log(error)
-        })
-        .get({
-            cliente: id
-        })
+        .done(response => exibirModalCliente(response))
+        .fail(error => console.log(error))
+        .get({ cliente: id })
 }
 
 
 
-function listarContratos() {
+function exibirModalCliente(clienteModel) {
 
-    new Request('cre/contratos/listar/{cliente}')
+    let cliente = new Cliente(clienteModel)
+
+    $('p[id="razao"]').html(clienteModel.razao)
+    $('p[id="endereco"]').html(cliente.enderecoCompleto())
+
+    $('span[id="modalClienteCPF"]').html(cliente.cpf())
+    $('span[id="modalClienteRG"]').html(cliente.rg())
+    $('span[id="modalClienteContato"]').html(cliente.contato())
+
+    listarContratosFinanceiro(clienteModel.id)
+
+    var modal = new bootstrap.Modal(document.getElementById('clienteModal'), {})
+    modal.show()
+}
+
+
+
+function listarContratosFinanceiro(clienteId) {
+    new Request('cre/detalhes/{cliente}')
         .csrf()
-        .done(response => {
-            resumoCliente.contratos = response
-
-
-            exibirContratos(response.contratos)
-        })
-        .get({
-            cliente: resumoCliente.model.id
-        })
+        .done(response => exibirDetalhesCliente(response))
+        .get({ cliente: clienteId })
 }
 
 
 
-function listarFinanceiro() {
+function exibirDetalhesCliente(detalhes) {
+    console.log(detalhes)
 
+    let contratos = detalhes.contratos
+    let financeiro = detalhes.financeiro
+
+    $(`div[id="clienteDetalhes"]`).append(
+        new Bootstrap().children(
+            new Bootstrap().childrens([
+                exibirContratos( contratos ).render(),
+                exibirFinanceiro( financeiro ).render()
+            ]).col('12', '12', '6', '6')
+        ).row()
+    )
+}
+
+
+
+function exibirContratos(contratos) {
+
+    let cardCtrtLst = []
+
+    contratos.forEach(contrato => cardCtrtLst.push(List.item(`
+        <div class="row text-uppercase fs-7 ixs-hover-light clickable pt-1 pb-2">
+            <div class="col-3"> <span class="badge bg-${ Contrato.status(contrato).cor }">${ Contrato.status(contrato).internet }</span> </div>
+            <div class="col-8 override-pills"> ${ contrato.contrato } </div>
+            <div class="col-1"> <i class="fas fa-chevron-right clickable" ></i> </div>
+        </div>`
+    )))
+
+    return new Card2()
+        .header(new Icon({ name: `file-invoice-dollar`, size: `2x` }))
+        .title(`Contrato`)
+        .body(
+            new Group().props(`accordion mt-3 w-100`).content(
+                new Accordion('clienteCtrt').item(
+                    'Cttr', Contrato.descricao(contratos),
+                    new Group(`ul`).props(`list-group list-group-flush`).content(cardCtrtLst)
+                )
+            )
+        )
+}
+
+
+
+function exibirFinanceiro(financeiro) {
+
+    return new Card2()
+        .header(new Icon({ name: `hand-holding-usd`, size: `2x` }))
+        .title(`Financeiro`)
+        .body(
+            new Group().props(`accordion mt-3 w-100`).content(
+                new Accordion('clienteFn').item(
+                    'Fn', '01 PARCELA EM ABERTO',
+                    new Group(`ul`).props(`list-group list-group-flush`).content(``)
+                )
+            )
+        )
 }
 
 
@@ -113,84 +162,8 @@ function exibirListaDeClientes(clientes) {
 
 
 
-function exibirModalCliente() {
-
-    let cliente = new Cliente(resumoCliente.model)
-
-    $('input[name="id_cliente"]').val(resumoCliente.model.id)
-    $('p[id="razao"]').html(resumoCliente.model.razao)
-    $('p[id="endereco"]').html(cliente.enderecoCompleto())
-
-    $('span[id="modalClienteCPF"]').html(cliente.cpf())
-    $('span[id="modalClienteRG"]').html(cliente.rg())
-    $('span[id="modalClienteContato"]').html(cliente.contato())
-
-    listarContratos()
-    listarFinanceiro()
-
-    var modal = new bootstrap.Modal(document.getElementById('clienteModal'), {})
-    modal.show()
-}
-
-
-
-function exibirContratos(contratos) {
-    limparClienteContratos()
-
-    let ccontrato = null
-    let ccurrhtml = null
-
-    let cardContratoIcon = new Icon({ name: `file-invoice-dollar`, size: `2x` })
-    let cardContrato = new Card2().icon(cardContratoIcon).title(`Contrato`).body(`
-        <button type="button" class="btn btn-sm btn-${ Contrato.status(contratos).cor } flex-grow-1 ms-3 me-3 mt-4" ${ Contrato.status(contratos).disabled }>
-            ${ Contrato.descricao(contratos) }
-        </button>
-    `)
-
-    let cardFnIcon = new Icon({ name: `hand-holding-usd`, size: `2x` })
-    let cardFn = new Card2().icon(cardFnIcon).title(`Financeiro`).body(`
-        <button type="button" class="btn btn-sm btn-${ Contrato.status(contratos).cor } flex-grow-1 ms-3 me-3 mt-4" ${ Contrato.status(contratos).disabled }>
-            ${ Contrato.descricao(contratos) }
-        </button>
-    `)
-
-    $(`div[id="clienteCartoes"]`).append(
-        new Bootstrap().children(
-            new Bootstrap().childrens([ cardContrato.render(), cardFn.render() ]).col('12', '12', '6', '6')
-        ).row()
-    )
-
-    if (contratos.length > 0) {
-        for (let i = 0; i < contratos.length; i++) {
-
-            //ccontrato = new ClienteContrato(contratos[i])
-
-            //ccurrhtml = ccontrato.html(
-
-            //)
-
-            //$(`div[id="accordionContratos"]`).append(ccurrhtml)
-
-
-            //ccontrato.request()
-            //ccontrato.exit('clienteModal')
-        }
-    }
-    else {
-        limparClienteContratos()
-    }
-}
-
-
-
 function limparClientesListados() {
     $(`div[id="contentListaDeClientes"]`).html(``)
-}
-
-
-
-function limparClienteContratos() {
-    $(`div[id="accordionContratos"]`).html(``)
 }
 
 

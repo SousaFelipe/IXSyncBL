@@ -42,14 +42,15 @@ Route::prefix('/clientes')->group(function () {
 
 Route::prefix('/cre')->group(function () {
 
+    Route::get('/detalhes/{cliente}', [App\Http\Controllers\Financeiro\CreController::class, 'detalhesContratoFinanceiro']);
+
     Route::prefix('/recebimentos')->group(function () {
-        Route::get('/listar/{cliente}', [App\Http\Controllers\Financeiro\CreController::class, 'fnPorCliente']);
         Route::get('/listar/{cliente}/{contrato}', [App\Http\Controllers\Financeiro\CreController::class, 'fnPorClienteContrato']);
         Route::get('/listar/status/{cliente}/{status}', [App\Http\Controllers\Financeiro\CreController::class, 'status']);
     });
 
     Route::prefix('/contratos')->group(function () {
-        Route::get('/listar/{cliente}', [App\Http\Controllers\Financeiro\ClienteContratoController::class, 'listar']);
+        Route::get('/listar/{cliente}', [App\Http\Controllers\Financeiro\ClienteContratoController::class, 'listarPorCliente']);
     });
 
 });

@@ -5,13 +5,13 @@ class Card2 {
 
 
 
-    icon(icon) {
-        this.cardIcon = icon
+    header(header) {
+        this.cardHeader = header
         return this
     }
 
-    drawIcon() {
-        return (this.cardIcon ? this.cardIcon.draw() : ``)
+    drawHeader() {
+        return (this.cardHeader ? this.cardHeader.draw() : ``)
     }
 
 
@@ -42,7 +42,7 @@ class Card2 {
         return (`
             <div class="card shadow-sm rounded">
                 <div class="card-body d-flex flex-column align-items-center">
-                    ${ this.drawIcon() }
+                    ${ this.drawHeader() }
                     <span class="text-secondary fw-bolder mt-1">${ this.drawTitle() }</span>
                     <div class="d-flex justify-content-stretch align-items-center w-100">
                         ${ this.drawBody() }

@@ -3,21 +3,19 @@ namespace App\Models\Financeiro;
 
 
 use Carbon\Carbon;
+use App\Traits\Grid;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 class Recebimento extends BaseModel
 {
+    use Grid;
+
+
+
     protected $table = 'fn_areceber';
     protected $srcname = 'fn_areceber';
-
-
-
-    public static function categorizados($recebimentos)
-    {
-        
-    }
 
 
 
@@ -44,16 +42,5 @@ class Recebimento extends BaseModel
         }
 
         return $filtrados;
-    }
-
-
-
-    public static function grid($queryType, $queryValue)
-    {
-        return [
-            'TB' => 'fn_areceber.' . $queryType,
-            'OP' => '=',
-            'P'  => $queryValue
-        ];
     }
 }

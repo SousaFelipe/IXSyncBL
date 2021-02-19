@@ -43,12 +43,17 @@ class BaseModel extends Model
 
 
 
-    /**
-     * @param array $grid A grade contendo as condições de busca
-     */
-    public function grid(array $grid) {
+    public function grid()
+    {
+        $grid = array();
+
+        if (func_num_args() > 0) {
+            $grid = func_get_args();
+        }
+
         $this->advanced = true;
         $this->grid = $grid;
+
         return $this;
     }
 

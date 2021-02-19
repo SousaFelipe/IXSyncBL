@@ -9,34 +9,19 @@ use Illuminate\Http\Request;
 
 class ClienteContratoController extends Controller
 {
-    public function listar(Request $request, ClienteContrato $ccontrato)
+    public function listarPorCliente(Request $request, ClienteContrato $ccontrato)
     {
         if ($this->csrfBroken($request)) {
             return $this->unauthorized();
         }
 
-        $grid1 = [
-            'TB' => 'cliente_contrato.id_cliente',
-            'OP' => '=',
-            'P'  => $request->cliente
-        ];
+        $grid = array(
+            $ccontrato->makeGrid('id_cliente', $request->cliente)
+        );
 
-        $grid2 = [
-            'TB' => 'cliente_contrato.status',
-            'OP' => '=',
-            'P'  => 'A'
-        ];
-
-        $ccontratos = $ccontrato->grid([ $grid1, $grid2 ])
-            ->orderBy('data_ativacao', 'desc')
-            ->in(1)
-            ->receive();
-
+        $ccontratos = $ccontrato->grid($grid)->orderBy('data_ativacao', 'desc')->in(1)->receive();
         $response = self::convertRecursively($ccontratos);
 
-        return response()->json([
-            'contratos'  => $response,
-            'quantidade' => count($response)
-        ]);
+        return response()->json(count($response) > 0 ? $response : []);
     }
 }

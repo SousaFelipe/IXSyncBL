@@ -128,9 +128,9 @@
                         </div>
 
                         <div class="row d-flex justify-content-center align-items-center w-100 h-100 mt-5">
-                            <div class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6 col-xxl-4">
+                            <div class="col-12 col-sm-12 col-md-11 col-lg-9 col-xl-7 col-xxl-6">
                                 <div class="d-flex flex-column align-items-stretch">
-                                    <div class="row">
+                                    <div class="row ps-5 pe-5">
                                         <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                                             <div class="ixs-form-group override-hidden">
                                                 <span class="ixs-form-label bg-primary">CPF</span>
@@ -165,7 +165,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="clienteCartoes" class="accordion d-flex flex-column justify-content-stretch w-100 mt-5"></div>
+                                    <div id="clienteDetalhes" class="d-flex flex-column justify-content-stretch w-100 mt-5"></div>
                                 </div>
                             </div>
                         </div>
@@ -189,6 +189,9 @@
 @section('scripts')
     <script src="{{ asset('js/components/Request.js') }}"></script>
     <script src="{{ asset('js/components/Bootstrap.js') }}"></script>
+    <script src="{{ asset('js/components/Group.js') }}"></script>
+    <script src="{{ asset('js/components/Accordion.js') }}"></script>
+    <script src="{{ asset('js/components/List.js') }}"></script>
     <script src="{{ asset('js/components/Icon.js') }}"></script>
     <script src="{{ asset('js/components/Card.js') }}"></script>
     <script src="{{ asset('js/components/Card2.js') }}"></script>

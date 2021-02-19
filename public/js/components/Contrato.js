@@ -26,7 +26,7 @@ class Contrato {
             'CM': () => 'BLOQUEADO',
             'CA': () => 'BLOQUEADO',
             'FA': () => 'EM ATRASO',
-            'AA': () => 'AGUARDANDO ASSINATURA'
+            'AA': () => 'ASSINATURA'
         }
 
         return (internetes[status] || internetes['A'])()
@@ -35,7 +35,7 @@ class Contrato {
 
     static status(contratos) {
 
-        const contrato = (contratos.length > 0) ? contratos[0] : undefined
+        const contrato = (Array.isArray(contratos) && contratos.length > 0) ? contratos[0] : contratos
 
         if (contrato && contrato.status == 'A') {
             return {
@@ -44,22 +44,20 @@ class Contrato {
                 disabled: ''
             }
         }
-        
+
         return {
             cor: 'secondary',
-            internet: 'ATIVO',
+            internet: 'DESATIVADO',
             disabled: 'disabled'
         }
     }
 
 
-    static descricao(contratos, text = 'CONTRATO') {
+    static descricao(contratos, text = 'CONTRATO', full = false) {
         return (`
-            <strong>
-                ${ (contratos.length <= 0) ? 'NENHUM' : (contratos.length > 9) ? contratos.length : `0${ contratos.length }` }
-            </strong>
-            ${ text }${ (contratos.length > 1) ? 'S' :  '' } 
-            ${ Contrato.status(contratos).internet }${ (contratos.length > 1) ? 'S' :  '' }
+            ${ (contratos.length <= 0) ? 'NENHUM ' : (contratos.length > 9) ? `${ contratos.length } ` : `0${ contratos.length } ` }
+            ${ text }${ (contratos.length > 1) ? 'S' :  '' }
+            ${ full ? `${ Contrato.status(contratos).internet }${ (contratos.length > 1) ? 'S' :  '' }` : `` }
         `)
     }
 }
