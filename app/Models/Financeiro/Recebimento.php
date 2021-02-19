@@ -14,38 +14,6 @@ class Recebimento extends BaseModel
 
 
 
-    public static function categorizados($recebimentos)
-    {
-        return [
-            'vencidos'      => self::filtrarEmAberto($recebimentos, true),
-            'em_aberto'     => self::filtrarEmAberto($recebimentos, false),
-            'pagos'         => self::filtrarPorStatus($recebimentos, 'R'),
-            'cancelados'    => self::filtrarPorStatus($recebimentos, 'C')
-        ];
-    }
-
-
-
-    /**
-     * @param string $recebimentos  A lista com todos os recebimentos
-     * @param string $status        O status dos recebimentos a serem filtrados
-     * -------------
-     * @return array
-    */
-    public static function filtrarPorStatus($recebimentos, $status = 'T') {
-        $filtrados = [];
-
-        foreach ($recebimentos as $key => $recebimento) {
-            if ($recebimento['status'] == $status) {
-                $filtrados[] = $recebimento;
-            }
-        }
-
-        return $filtrados;
-    }
-
-
-
     /**
      * @param string    $recebimentos   A lista com todos os recebimentos
      * @param boolean   $vencidos       Filtra os recebimentos que ultrapassaram a data de pagamento
@@ -73,7 +41,7 @@ class Recebimento extends BaseModel
 
 
 
-    public static function statusGrid($queryType, $queryValue)
+    public static function grid($queryType, $queryValue)
     {
         return [
             'TB' => 'fn_areceber.' . $queryType,

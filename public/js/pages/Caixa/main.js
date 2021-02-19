@@ -3,7 +3,8 @@
 
 let resumoCliente = {
     model: {},
-    contratos: []
+    contratos: [],
+    financeiro: []
 }
 
 
@@ -97,20 +98,6 @@ function listarFinanceiro() {
 
 
 
-function buscarConsumo() {
-
-    new Request('provedor/logins/{cliente}')
-        .csrf()
-        .done(response => {
-            //console.log(response)
-        })
-        .get({
-            cliente: resumoCliente.model.id
-        })
-}
-
-
-
 function exibirListaDeClientes(clientes) {
     limparClientesListados()
 
@@ -140,7 +127,6 @@ function exibirModalCliente() {
 
     listarContratos()
     listarFinanceiro()
-    buscarConsumo()
 
     var modal = new bootstrap.Modal(document.getElementById('clienteModal'), {})
     modal.show()

@@ -43,7 +43,8 @@ Route::prefix('/clientes')->group(function () {
 Route::prefix('/cre')->group(function () {
 
     Route::prefix('/recebimentos')->group(function () {
-        Route::get('/listar/categorizados/{cliente}/{contrato}', [App\Http\Controllers\Financeiro\CreController::class, 'categorizados']);
+        Route::get('/listar/{cliente}', [App\Http\Controllers\Financeiro\CreController::class, 'fnPorCliente']);
+        Route::get('/listar/{cliente}/{contrato}', [App\Http\Controllers\Financeiro\CreController::class, 'fnPorClienteContrato']);
         Route::get('/listar/status/{cliente}/{status}', [App\Http\Controllers\Financeiro\CreController::class, 'status']);
     });
 
