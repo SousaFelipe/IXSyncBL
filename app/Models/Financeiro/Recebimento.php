@@ -14,6 +14,13 @@ class Recebimento extends BaseModel
 
 
 
+    public static function categorizados($recebimentos)
+    {
+        
+    }
+
+
+
     /**
      * @param string    $recebimentos   A lista com todos os recebimentos
      * @param boolean   $vencidos       Filtra os recebimentos que ultrapassaram a data de pagamento
