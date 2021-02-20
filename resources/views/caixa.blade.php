@@ -119,7 +119,7 @@
                 <div class="modal-body ixs-text-dark">
                     <div class="d-flex flex-column align-items-center w-100">
 
-                        <div class="d-flex justify-content-center text-uppercase">
+                        <div class="d-flex justify-content-center text-uppercase mt-5">
                             <div class="d-flex flex-column justify-content-center align-items-center lh-1">
                                 <span class="fas fa-user fa-2x mt-1 mb-1 text-primary"></span>
                                 <p id="razao" class="h3 ui-text-primary"></p>
@@ -132,7 +132,7 @@
                                 <div class="d-flex flex-column align-items-stretch">
                                     <div class="row ps-5 pe-5">
                                         <div class="col-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="ixs-form-group override-hidden">
+                                            <div class="ixs-form-group override-hidden mt-2">
                                                 <span class="ixs-form-label bg-primary">CPF</span>
                                                 <div class="ixs-form">
                                                     <span class="ixs-form-icon d-flex justify-content-center align-items-center">
@@ -143,7 +143,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="ixs-form-group override-hidden">
+                                            <div class="ixs-form-group override-hidden mt-2">
                                                 <span class="ixs-form-label bg-primary">RG</span>
                                                 <div class="ixs-form">
                                                     <span class="ixs-form-icon d-flex justify-content-center align-items-center">
@@ -154,7 +154,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="ixs-form-group override-hidden">
+                                            <div class="ixs-form-group override-hidden mt-2">
                                                 <span class="ixs-form-label bg-primary">CONTATO</span>
                                                 <div class="ixs-form">
                                                     <span class="ixs-form-icon d-flex justify-content-center align-items-center">
@@ -191,14 +191,14 @@
     <script src="{{ asset('js/components/Bootstrap.js') }}"></script>
     <script src="{{ asset('js/components/Group.js') }}"></script>
     <script src="{{ asset('js/components/Accordion.js') }}"></script>
-    <script src="{{ asset('js/components/List.js') }}"></script>
-    <script src="{{ asset('js/components/Icon.js') }}"></script>
     <script src="{{ asset('js/components/Card.js') }}"></script>
     <script src="{{ asset('js/components/Card2.js') }}"></script>
     <script src="{{ asset('js/components/Contrato.js') }}"></script>
+    <script src="{{ asset('js/components/Icon.js') }}"></script>
+    <script src="{{ asset('js/components/List.js') }}"></script>
+    <script src="{{ asset('js/components/Recebimento.js') }}"></script>
     <script src="{{ asset('js/html/elements.js') }}"></script>
     <script src="{{ asset('js/models/Cliente.js') }}"></script>
-    <script src="{{ asset('js/models/Recebimento.js') }}"></script>
     <script src="{{ asset('js/models/ClienteContrato.js') }}"></script>
     <script src="{{ asset('js/pages/Caixa/components.js') }}"></script>
     <script src="{{ asset('js/pages/Caixa/main.js') }}"></script>

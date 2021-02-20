@@ -38,9 +38,9 @@ class Card2 {
 
 
 
-    render() {
+    render(props = '') {
         return (`
-            <div class="card shadow-sm rounded">
+            <div class="card shadow-sm rounded ${ props }">
                 <div class="card-body d-flex flex-column align-items-center">
                     ${ this.drawHeader() }
                     <span class="text-secondary fw-bolder mt-1">${ this.drawTitle() }</span>

@@ -77,6 +77,8 @@ function exibirModalCliente(clienteModel) {
 
 
 function listarContratosFinanceiro(clienteId) {
+    limparDetalhesCliente()
+
     new Request('cre/detalhes/{cliente}')
         .csrf()
         .done(response => exibirDetalhesCliente(response))
@@ -94,8 +96,8 @@ function exibirDetalhesCliente(detalhes) {
     $(`div[id="clienteDetalhes"]`).append(
         new Bootstrap().children(
             new Bootstrap().childrens([
-                exibirContratos( contratos ).render(),
-                exibirFinanceiro( financeiro ).render()
+                exibirContratos( contratos ).render(`mt-4`),
+                exibirFinanceiro( financeiro ).render(`mt-4`)
             ]).col('12', '12', '6', '6')
         ).row()
     )
@@ -120,7 +122,7 @@ function exibirContratos(contratos) {
         .title(`Contrato`)
         .body(
             new Group().props(`accordion mt-3 w-100`).content(
-                new Accordion('clienteCtrt').item(
+                new Accordion().item(
                     'Cttr', Contrato.descricao(contratos),
                     new Group(`ul`).props(`list-group list-group-flush`).content(cardCtrtLst)
                 )
@@ -132,14 +134,28 @@ function exibirContratos(contratos) {
 
 function exibirFinanceiro(financeiro) {
 
+    let vencidos = financeiro.vencidos
+    let emAberto = financeiro.em_aberto
+
+    let spnVncds = `<span class="badge bg-${ Recebimento.status(financeiro) }">${ utils.calc().ptBRL(utils.calc().accumulate(vencidos, 'valor_aberto')) }</span>`
+    let spnEmAbrt = `<span class="badge bg-${ Recebimento.status(financeiro) }">${ utils.calc().ptBRL(utils.calc().accumulate(emAberto, 'valor_aberto')) }</span>`
+
+    let cardFnLst = List.item(`
+        <div class="row text-uppercase fs-7 ixs-hover-light clickable pt-1 pb-2">
+            <div class="col-11 override-pills"> ${ (vencidos.length > 0) ? spnVncds : `` } ${ (emAberto.length > 0) ? spnEmAbrt : `` } </div>
+            <div class="col-1"> <i class="fas fa-chevron-right clickable" ></i> </div>
+        </div>`
+    )
+
     return new Card2()
         .header(new Icon({ name: `hand-holding-usd`, size: `2x` }))
         .title(`Financeiro`)
         .body(
             new Group().props(`accordion mt-3 w-100`).content(
-                new Accordion('clienteFn').item(
-                    'Fn', '01 PARCELA EM ABERTO',
-                    new Group(`ul`).props(`list-group list-group-flush`).content(``)
+                new Accordion().item(
+                    'Fn', Recebimento.descricao(financeiro),
+                    new Group(`ul`).props(`list-group list-group-flush`).content(cardFnLst),
+                    Recebimento.status(financeiro)
                 )
             )
         )
@@ -164,6 +180,12 @@ function exibirListaDeClientes(clientes) {
 
 function limparClientesListados() {
     $(`div[id="contentListaDeClientes"]`).html(``)
+}
+
+
+
+function limparDetalhesCliente() {
+    $(`div[id="clienteDetalhes"]`).html(``)
 }
 
 
