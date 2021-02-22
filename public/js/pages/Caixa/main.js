@@ -48,6 +48,8 @@ function listarClientes(request) {
 
 
 function buscarCliente(id) {
+    alternarModalLoading(true)
+
     new Request('clientes/buscar/{cliente}')
         .csrf()
         .done(response => exibirModalCliente(response))
@@ -101,6 +103,8 @@ function exibirDetalhesCliente(detalhes) {
             ]).col('12', '12', '6', '6')
         ).row()
     )
+
+    alternarModalLoading(false)
 }
 
 
@@ -135,17 +139,24 @@ function exibirContratos(contratos) {
 function exibirFinanceiro(financeiro) {
 
     let vencidos = financeiro.vencidos
-    let emAberto = financeiro.em_aberto
+    let emAbertos = financeiro.em_aberto
 
-    let spnVncds = `<span class="badge bg-${ Recebimento.status(financeiro) }">${ utils.calc().ptBRL(utils.calc().accumulate(vencidos, 'valor_aberto')) }</span>`
-    let spnEmAbrt = `<span class="badge bg-${ Recebimento.status(financeiro) }">${ utils.calc().ptBRL(utils.calc().accumulate(emAberto, 'valor_aberto')) }</span>`
+    let vcdsLst = []
+    let ebtrLst = []
 
-    let cardFnLst = List.item(`
+    financeiro.vencidos.forEach(vencido => vcdsLst.push(List.item(`
         <div class="row text-uppercase fs-7 ixs-hover-light clickable pt-1 pb-2">
-            <div class="col-11 override-pills"> ${ (vencidos.length > 0) ? spnVncds : `` } ${ (emAberto.length > 0) ? spnEmAbrt : `` } </div>
+            <div class="col-11 override-pills">${ vencidos.length } TOATALIZANDO ${ utils.calc().ptBRL(utils.calc().accumulate(vencidos, 'valor_aberto')) }</div>
             <div class="col-1"> <i class="fas fa-chevron-right clickable" ></i> </div>
         </div>`
-    )
+    )))
+
+    let vencidosItem = List.item(`
+        <div class="row text-uppercase fs-7 ixs-hover-light clickable pt-1 pb-2">
+            <div class="col-11 override-pills">${ emAbertos.length } TOATALIZANDO ${ utils.calc().ptBRL(utils.calc().accumulate(emAbertos, 'valor_aberto')) }</div>
+            <div class="col-1"> <i class="fas fa-chevron-right clickable" ></i> </div>
+        </div>
+    `)
 
     return new Card2()
         .header(new Icon({ name: `hand-holding-usd`, size: `2x` }))
@@ -154,7 +165,7 @@ function exibirFinanceiro(financeiro) {
             new Group().props(`accordion mt-3 w-100`).content(
                 new Accordion().item(
                     'Fn', Recebimento.descricao(financeiro),
-                    new Group(`ul`).props(`list-group list-group-flush`).content(cardFnLst),
+                    new Group(`ul`).props(`list-group list-group-flush`).content([vencidosItem]),
                     Recebimento.status(financeiro)
                 )
             )
@@ -193,4 +204,15 @@ function limparDetalhesCliente() {
 function alternaIconeDeBusca(element, loading = true) {
     $(`span[id="${ element }"]`).html('')
     $(`span[id="${ element }"]`).html( loading ? elements.spinner : elements.icon('search') )
+}
+
+
+
+function alternarModalLoading(loading = true) {
+    if (loading) {
+        $('div[id="modalClienteLoading"]').removeClass('d-none')
+    }
+    else {
+        $('div[id="modalClienteLoading"]').addClass('d-none')
+    }
 }

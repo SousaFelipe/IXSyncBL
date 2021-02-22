@@ -70,7 +70,7 @@
                                         <li><span class="dropdown-item clickable">Meu perfil</span></li>
                                         <li><span class="dropdown-item clickable">Configurações</span></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li class="clickable" onclick="app.submitForm()"><span class="dropdown-item text-danger">Sair</span></li>
+                                        <li class="clickable" onclick="app.submitForm()"><span class="dropdown-item">Sair</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -117,6 +117,13 @@
                     <button type="button" class="btn-close mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body ixs-text-dark">
+
+                    <div id="modalClienteLoading" class="d-flex justify-content-center align-items-center bg-white w-100 h-100 position-absolute" style="z-index: 1000;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
                     <div class="d-flex flex-column justify-content-center align-items-center w-100">
 
                         <div class="d-flex justify-content-center text-uppercase" style="margin-top: 5%;">
@@ -133,7 +140,7 @@
                                     <div class="row ps-5 pe-5">
                                         <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                                             <div class="ixs-form-group override-hidden mt-2">
-                                                <span class="ixs-form-label bg-primary">CPF</span>
+                                                <span class="ixs-form-label bg-primary">CPF/CNPJ</span>
                                                 <div class="ixs-form">
                                                     <span class="ixs-form-icon d-flex justify-content-center align-items-center">
                                                         <i class="fas fa-id-card"></i>
