@@ -114,12 +114,12 @@
             <div class="modal-content ms-0">
                 <input type="hidden" name="id_cliente" >
                 <div class="modal-header border-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body ixs-text-dark">
-                    <div class="d-flex flex-column align-items-center w-100">
+                    <div class="d-flex flex-column justify-content-center align-items-center w-100">
 
-                        <div class="d-flex justify-content-center text-uppercase mt-5">
+                        <div class="d-flex justify-content-center text-uppercase" style="margin-top: 5%;">
                             <div class="d-flex flex-column justify-content-center align-items-center lh-1">
                                 <span class="fas fa-user fa-2x mt-1 mb-1 text-primary"></span>
                                 <p id="razao" class="h3 ui-text-primary"></p>
@@ -127,7 +127,7 @@
                             </div>
                         </div>
 
-                        <div class="row d-flex justify-content-center align-items-center w-100 h-100 mt-5">
+                        <div class="row d-flex justify-content-center align-items-center w-100">
                             <div class="col-12 col-sm-12 col-md-11 col-lg-9 col-xl-7 col-xxl-6">
                                 <div class="d-flex flex-column align-items-stretch">
                                     <div class="row ps-5 pe-5">
@@ -165,7 +165,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="clienteDetalhes" class="d-flex flex-column justify-content-stretch w-100 mt-5"></div>
+                                    <div id="clienteDetalhes" class="d-flex flex-column justify-content-stretch w-100 mt-3"></div>
                                 </div>
                             </div>
                         </div>
