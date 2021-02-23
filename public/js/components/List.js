@@ -4,11 +4,33 @@
 class List {
 
 
-    static item (content) {
+    /**
+     * @param {string} element
+     */
+    constructor(element = 'div') {
+        this.element = element
+        this.listProps = 'list-group-item'
+    }
+
+
+    /**
+     * @param {string} props
+     */
+    props(props) {
+        this.listProps = props
+        return this
+    }
+
+
+    /**
+     * @param {array} content
+     * @param {string} props
+     */
+    item (content) {
         return (`
-            <li class="list-group-item" aria-current="false">
+            <${ this.element } class="${ this.listProps }" aria-current="false">
                 ${ content }
-            </li>
+            </${ this.element }>
         `)
     }
 }

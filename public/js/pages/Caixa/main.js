@@ -3,7 +3,7 @@
 
 $(document).ready(function () {
 
-    $("#clienteModal").on("hidden.bs.modal", function () {
+    $('div[id="clienteModal"]').on("hidden.bs.modal", function () {
         $('input[id="search"]').focus()
         $('div[id="clienteCartoes"]').html('')
     })
@@ -25,6 +25,15 @@ $(document).ready(function () {
         if ($('input[id="search"]').val().length >= 3) {
             $('input[id="search"]').focus()
         }
+    })
+
+    let triggerTabList = [].slice.call(document.querySelectorAll('#fnTabs a'))
+    triggerTabList.forEach(element => {
+        let trigger = new bootstrap.Tab(element)
+        element.addEventListener('click', function (event) {
+            event.preventDefault()
+            trigger.show()
+        })
     })
 })
 
@@ -70,7 +79,7 @@ function exibirModalCliente(clienteModel) {
     $('span[id="modalClienteRG"]').html(cliente.rg())
     $('span[id="modalClienteContato"]').html(cliente.contato())
 
-    listarContratosFinanceiro(clienteModel.id)
+    listarContratos(clienteModel.id)
 
     var modal = new bootstrap.Modal(document.getElementById('clienteModal'), {})
     modal.show()
@@ -78,89 +87,44 @@ function exibirModalCliente(clienteModel) {
 
 
 
-function listarContratosFinanceiro(clienteId) {
+function listarContratos(clienteId) {
     limparDetalhesCliente()
 
-    new Request('cre/detalhes/{cliente}')
+    new Request('cre/contratos/listar/{cliente}')
         .csrf()
-        .done(response => exibirDetalhesCliente(response))
+        .done(response => exibirContratos(response))
         .get({ cliente: clienteId })
-}
-
-
-
-function exibirDetalhesCliente(detalhes) {
-    console.log(detalhes)
-
-    let contratos = detalhes.contratos
-    let financeiro = detalhes.financeiro
-
-    /*
-    $(`div[id="clienteDetalhes"]`).append(
-        new Bootstrap().children(
-            new Bootstrap().childrens([
-                exibirContratos( contratos ).render(`mt-4`),
-                exibirFinanceiro( financeiro ).render(`mt-4`)
-            ]).col('12', '12', '6', '6')
-        ).row()
-    )
-    */
-
-    if (financeiro.vencidos.length > 0) {
-        $('div[id="vencidos-tab-pane"]').append(
-            exibirFinanceiro(financeiro.vencidos).render()
-        )
-    }
-
-    if (financeiro.em_aberto.length > 0) {
-        $('div[id="emabertos-tab-pane"]').append(
-            exibirFinanceiro(financeiro.em_aberto)
-        )
-    }
-
-    alternarModalLoading(false)
 }
 
 
 
 function exibirContratos(contratos) {
 
-    let cardCtrtLst = []
+    let ativos = contratos.ativos
+    let desativados = contratos.desativados
 
-    contratos.forEach(contrato => cardCtrtLst.push(List.item(`
-        <div class="row text-uppercase fs-7 ixs-hover-light clickable pt-1 pb-2">
-            <div class="col-3"> <span class="badge bg-${ Contrato.status(contrato).cor }">${ Contrato.status(contrato).internet }</span> </div>
-            <div class="col-8 override-pills"> ${ contrato.contrato } </div>
-            <div class="col-1"> <i class="fas fa-chevron-right clickable" ></i> </div>
-        </div>`
-    )))
+    let items = []
 
-    return new Card2()
-        .header(new Icon({ name: `file-invoice-dollar`, size: `2x` }))
-        .title(`Contrato`)
-        .body(
-            new Group().props(`accordion mt-3 w-100`).content(
-                new Accordion().item(
-                    'Cttr', Contrato.descricao(contratos),
-                    new Group(`ul`).props(`list-group list-group-flush`).content(cardCtrtLst)
-                )
-            )
-        )
+    if (ativos.length > 0) {
+        ativos.forEach(contrato => items.push( new List('li').item(components.contrato().item(contrato))))
+        $('div[id="clienteContratos"]').append(new Group().id('contratos-tabs').props('list-group list-group-flush').content(items))
+    }
+
+    listarFinanceiro(ativos[0].id)
 }
 
 
 
-function exibirFinanceiro(recebimentos) {
-
-    let content = []
+function financeiro(recebimentos) {
+    let items = []
 
     if (recebimentos.length > 0) {
-        recebimentos.forEach(recebimento => {
-            content.push(List.item( components.recebimentoItem(recebimento) ))
-        })
+        recebimentos.forEach(recebimento =>
+            items.push(new List().props('d-flex flex-column align-items-stretch').item(components.recebimento().item(recebimento)))
+        )
     }
 
-    return new Group(`ul`).props(`list-group list-group-flush`).content(content)
+    return new Group().props(`d-flex flex-column align-items-stretch w-100`).content(items)
 }
 
 
@@ -170,7 +134,7 @@ function exibirListaDeClientes(clientes) {
 
     if (clientes.length > 0) {
         for (let i = 0; i < clientes.length; i++) {
-            $(`div[id="contentListaDeClientes"]`).append(components.clienteItem(clientes[i]))
+            $(`div[id="contentListaDeClientes"]`).append(components.cliente().item(clientes[i]))
         }
     }
     else {

@@ -15,4 +15,31 @@ class ClienteContrato extends BaseModel
 
     protected $table = 'cliente_contrato';
     protected $srcname = 'cliente_contrato';
+
+
+
+    public static function filtrarCategoria($ccontratos)
+    {
+        return array(
+            'ativos'        => self::categoria($ccontratos, 'A'),
+            'desativados'   => self::categoria($ccontratos, 'I'),
+            'pre_contratos' => self::categoria($ccontratos, 'P'),
+            'negativados'   => self::categoria($ccontratos, 'N'),
+            'desistentes'   => self::categoria($ccontratos, 'D')
+        );
+    }
+
+
+
+    public static function categoria($ccontratos, $categoria) {
+        $filtrados = [];
+
+        foreach ($ccontratos as $key => $contrato) {
+            if ($contrato['status'] == $categoria) {
+                $filtrados[] = $contrato;
+            }
+        }
+
+        return $filtrados;
+    }
 }

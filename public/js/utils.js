@@ -14,17 +14,6 @@ function today() {
 }
 
 
-function now() {
-
-}
-
-
-
-function todayNow() {
-
-}
-
-
 
 const utils = {
 
@@ -53,8 +42,6 @@ const utils = {
         return {
 
             today:      today,
-            now:        now,
-            todayNow:   todayNow,
 
             isValid:    () => (dateString != 'Invalid Date'),
 

@@ -172,26 +172,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-column align-items-stretch mt-4 ps-4 pe-4 w-100">
-                                        <ul class="nav nav-tabs" role="tablist">
+                                    <div class="d-flex justify-content-center mt-5">
+                                        <div id="clienteContratos" style="width: 28rem;">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column align-items-stretch mt-5 ps-4 pe-4 w-100">
+                                        <ul id="fnTabs" class="nav nav-tabs" role="tablist">
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="vencidos-tab" data-bs-toggle="tab" data-bs-target="#vencidos" type="button" role="tab" aria-controls="vencidos" aria-selected="true">VENCIDOS</button>
+                                                <button class="nav-link" id="vencidos-tab" data-bs-toggle="tab" data-bs-target="#vencidos-tab-pane" type="button" role="tab" aria-controls="vencidos-tab-pane" aria-selected="false">VENCIDOS</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="emabertos-tab" data-bs-toggle="tab" data-bs-target="#emabertos" type="button" role="tab" aria-controls="emabertos" aria-selected="false">À VENCER</button>
+                                                <button class="nav-link" id="emabertos-tab" data-bs-toggle="tab" data-bs-target="#emabertos-tab-pane" type="button" role="tab" aria-controls="emabertos-tab-pane" aria-selected="false">À VENCER</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="recebidos-tab" data-bs-toggle="tab" data-bs-target="#recebidos" type="button" role="tab" aria-controls="recebidos" aria-selected="false">RECEBIDOS</button>
+                                                <button class="nav-link" id="recebidos-tab" data-bs-toggle="tab" data-bs-target="#recebidos-tab-pane" type="button" role="tab" aria-controls="recebidos-tab-pane" aria-selected="false">RECEBIDOS</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="cancelados-tab" data-bs-toggle="tab" data-bs-target="#cancelados" type="button" role="tab" aria-controls="cancelados" aria-selected="false">CANCELADOS</button>
+                                                <button class="nav-link" id="cancelados-tab" data-bs-toggle="tab" data-bs-target="#cancelados-tab-pane" type="button" role="tab" aria-controls="cancelados-tab-pane" aria-selected="false">CANCELADOS</button>
                                             </li>
                                         </ul>
-                                        <div class="tab-content" id="fnTabContent">
-                                            <div class="tab-pane fade" id="vencidos-tab-pane" role="tabpanel" aria-labelledby="vencidos-tab">...</div>
-                                            <div class="tab-pane fade" id="emabertos-tab-pane" role="tabpanel" aria-labelledby="emabertos-tab">...</div>
-                                            <div class="tab-pane fade" id="recebidos-tab-pane" role="tabpanel" aria-labelledby="recebidos-tab">...</div>
-                                            <div class="tab-pane fade" id="cancelados-tab-pane" role="tabpanel" aria-labelledby="cancelados-tab">...</div>
+                                        <div class="tab-content w-100" id="fnTabContent">
+                                            <div class="tab-pane fade override-hidden" id="vencidos-tab-pane" role="tabpanel" aria-labelledby="vencidos-tab"></div>
+                                            <div class="tab-pane fade override-hidden" id="emabertos-tab-pane" role="tabpanel" aria-labelledby="emabertos-tab"></div>
+                                            <div class="tab-pane fade override-hidden" id="recebidos-tab-pane" role="tabpanel" aria-labelledby="recebidos-tab"></div>
+                                            <div class="tab-pane fade override-hidden" id="cancelados-tab-pane" role="tabpanel" aria-labelledby="cancelados-tab"></div>
                                         </div>
                                     </div>
                                 </div>

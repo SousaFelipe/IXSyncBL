@@ -48,16 +48,14 @@ class CreController extends Controller
 
 
 
-    public function fnPorClienteContrato(Request $request, Recebimento $recebimento)
+    public function fnPorClienteContrato(Request $request)
     {
         if ($this->csrfBroken($request)) {
             return $this->unauthorized();
         }
 
-        $grid = [
-            $recebimento->makeGrid('id_cliente', $request->cliente),
-            $recebimento->makeGrid('id_contrato', $request->contrato)
-        ];
+        $recebimento = new Recebimento();
+        $grid = $recebimento->makeGrid('id_contrato', $request->contrato);
 
         $emAberto   = $recebimento->grid($grid, $recebimento->makeGrid('status', 'A'))->orderBy('data_vencimento', 'desc')->in(1)->receive();
         $recebidos  = $recebimento->grid($grid, $recebimento->makeGrid('status', 'R'))->orderBy('data_vencimento', 'desc')->in(1)->receive();
