@@ -95,7 +95,6 @@ function exibirDetalhesCliente(detalhes) {
     let contratos = detalhes.contratos
     let financeiro = detalhes.financeiro
 
-    /*
     $(`div[id="clienteDetalhes"]`).append(
         new Bootstrap().children(
             new Bootstrap().childrens([
@@ -104,19 +103,6 @@ function exibirDetalhesCliente(detalhes) {
             ]).col('12', '12', '6', '6')
         ).row()
     )
-    */
-
-    if (financeiro.vencidos.length > 0) {
-        $('div[id="vencidos-tab-pane"]').append(
-            exibirFinanceiro(financeiro.vencidos).render()
-        )
-    }
-
-    if (financeiro.em_aberto.length > 0) {
-        $('div[id="emabertos-tab-pane"]').append(
-            exibirFinanceiro(financeiro.em_aberto)
-        )
-    }
 
     alternarModalLoading(false)
 }
@@ -150,17 +136,43 @@ function exibirContratos(contratos) {
 
 
 
-function exibirFinanceiro(recebimentos) {
+function exibirFinanceiro(financeiro) {
+
+    let vencidos = financeiro.vencidos
+    let emAbertos = financeiro.em_aberto
 
     let content = []
 
-    if (recebimentos.length > 0) {
-        recebimentos.forEach(recebimento => {
-            content.push(List.item( components.recebimentoItem(recebimento) ))
-        })
+    if (vencidos.length > 0) {
+        vencidos.forEach(vencido => content.push(List.item(`
+            <div class="row text-uppercase fs-7 ixs-hover-light clickable pt-1 pb-2">
+                <div class="col-11 override-pills"> <span class="badge bg-danger">${ utils.calc().ptBRL(vencido.valor_aberto) }</span> VENCIDO DESDE ${ utils.date(vencido.data_vencimento).string() }</div>
+                <div class="col-1"> <i class="fas fa-chevron-right clickable" ></i> </div>
+            </div>
+        `)))
     }
 
-    return new Group(`ul`).props(`list-group list-group-flush`).content(content)
+    if (emAbertos.length > 0) {
+        content.push(List.item(`
+            <div class="row text-uppercase fs-7 ixs-hover-light clickable pt-1 pb-2">
+                <div class="col-11 override-pills"><span class="badge bg-warning">${ utils.calc().ptBRL(emAbertos[0].valor_aberto) }</span> À VENCER EM ${ utils.date(emAbertos[0].data_vencimento).string() }</div>
+                <div class="col-1"> <i class="fas fa-chevron-right clickable" ></i> </div>
+            </div>
+        `))
+    }
+
+    return new Card2()
+        .header(new Icon({ name: `hand-holding-usd`, size: `2x` }))
+        .title(`Financeiro`)
+        .body(
+            new Group().props(`accordion mt-3 w-100`).content(
+                new Accordion().item(
+                    'Fn', Recebimento.descricao(financeiro),
+                    new Group(`ul`).props(`list-group list-group-flush`).content(content),
+                    Recebimento.status(financeiro)
+                )
+            )
+        )
 }
 
 

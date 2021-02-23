@@ -29,13 +29,13 @@ class CreController extends Controller
             $recebimento->makeGrid('id_contrato', $request->contrato)
         );
 
-        $emAberto = $recebimento->grid($fnGrid[0], $recebimento->makeGrid('status', 'A'))->orderBy('data_vencimento', 'desc')->in(1)->receive();
+        $emAberto = $recebimento->grid($fnGrid[0], $recebimento->makeGrid('status', 'A'))->orderBy('data_vencimento', 'asc')->in(1)->receive();
 
         $financeiro = array(
-            'em_aberto' => $emAberto,
-            'recebidos' => $recebimento->grid($fnGrid[0], $fnGrid[1], $recebimento->makeGrid('status', 'R'))->orderBy('data_vencimento', 'desc')->in(1)->receive(),
-            'cancelados'=> $recebimento->grid($fnGrid[0], $fnGrid[1], $recebimento->makeGrid('status', 'C'))->orderBy('data_vencimento', 'desc')->in(1)->receive(),
-            'vencidos'  => Recebimento::filtrarEmAberto($emAberto, true)
+            'vencidos'  => Recebimento::filtrarVencidos($emAberto, true),
+            'em_aberto' => Recebimento::filtrarVencidos($emAberto, false),
+            'recebidos' => $recebimento->grid($fnGrid[0], $fnGrid[1], $recebimento->makeGrid('status', 'R'))->orderBy('data_vencimento', 'asc')->in(1)->receive(),
+            'cancelados'=> $recebimento->grid($fnGrid[0], $fnGrid[1], $recebimento->makeGrid('status', 'C'))->orderBy('data_vencimento', 'asc')->in(1)->receive()
         );
 
         $response = array(
@@ -63,8 +63,8 @@ class CreController extends Controller
         $recebidos  = $recebimento->grid($grid, $recebimento->makeGrid('status', 'R'))->orderBy('data_vencimento', 'desc')->in(1)->receive();
         $cancelados = $recebimento->grid($grid, $recebimento->makeGrid('status', 'C'))->orderBy('data_vencimento', 'desc')->in(1)->receive();
 
-        $vencidos = Recebimento::filtrarEmAberto($emAberto, true);
-        $emAberto = Recebimento::filtrarEmAberto($emAberto, false);
+        $vencidos = Recebimento::filtrarVencidos($emAberto, true);
+        $emAberto = Recebimento::filtrarVencidos($emAberto, false);
 
         $response = self::convertRecursively([
             'vencidos'  => $vencidos,

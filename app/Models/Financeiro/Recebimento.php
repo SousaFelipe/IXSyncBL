@@ -25,7 +25,7 @@ class Recebimento extends BaseModel
      * -------------
      * @return array
      */
-    public static function filtrarEmAberto($recebimentos, $vencidos = false) {
+    public static function filtrarVencidos($recebimentos, $vencidos = true) {
         $filtrados = [];
 
         foreach ($recebimentos as $key => $recebimento) {

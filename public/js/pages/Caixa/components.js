@@ -20,6 +20,29 @@ const components = {
 
 
 
+    recebimentoItem: recebimento => {
+
+        const model = new Recebimento(recebimento)
+
+        return (`
+            <div class="row d-flex align-items-center ps-0 pe-0 t-1 pb-1 ixs-hover-light clickable text-uppercase">
+                <div class="col-1">
+                    <span class="badge rounded-pill bg-${ model.status_cor }">
+                        <i class="fas fa-${ model.status_icone }"></i>
+                    </span>
+                </div>
+                <div class="col-1 override-pills fs-7"> ${ model.id } </div>
+                <div class="col-2 override-pills fs-7"> ${ model.data_vencimento } </div>
+                <div class="col-2 override-pills ${ utils.font().shouldBeBolder(model.valor_aberto) } fs-7"> ${ utils.calc().ptBRL(model.valor_aberto) } </div>
+                <div class="col-2 override-pills ${ utils.font().shouldBeBolder(model.valor_cancelado) } fs-7"> ${ utils.calc().ptBRL(model.valor_cancelado) } </div>
+                <div class="col-2 override-pills ${ utils.font().shouldBeBolder(model.valor_recebido) } fs-7"> ${ utils.calc().ptBRL(model.valor_recebido) } </div>
+                <div class="col-2 override-pills fs-7"> ${ model.dataBaixa() } </div>
+            </div>
+        `)
+    },
+
+
+
     listaDeCartoes: variant => {
         return (`
             <div class="row d-flex justify-content-stretch">

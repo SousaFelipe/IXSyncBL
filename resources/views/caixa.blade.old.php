@@ -172,28 +172,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-column align-items-stretch mt-4 ps-4 pe-4 w-100">
-                                        <ul class="nav nav-tabs" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="vencidos-tab" data-bs-toggle="tab" data-bs-target="#vencidos" type="button" role="tab" aria-controls="vencidos" aria-selected="true">VENCIDOS</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="emabertos-tab" data-bs-toggle="tab" data-bs-target="#emabertos" type="button" role="tab" aria-controls="emabertos" aria-selected="false">À VENCER</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="recebidos-tab" data-bs-toggle="tab" data-bs-target="#recebidos" type="button" role="tab" aria-controls="recebidos" aria-selected="false">RECEBIDOS</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="cancelados-tab" data-bs-toggle="tab" data-bs-target="#cancelados" type="button" role="tab" aria-controls="cancelados" aria-selected="false">CANCELADOS</button>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content" id="fnTabContent">
-                                            <div class="tab-pane fade" id="vencidos-tab-pane" role="tabpanel" aria-labelledby="vencidos-tab">...</div>
-                                            <div class="tab-pane fade" id="emabertos-tab-pane" role="tabpanel" aria-labelledby="emabertos-tab">...</div>
-                                            <div class="tab-pane fade" id="recebidos-tab-pane" role="tabpanel" aria-labelledby="recebidos-tab">...</div>
-                                            <div class="tab-pane fade" id="cancelados-tab-pane" role="tabpanel" aria-labelledby="cancelados-tab">...</div>
-                                        </div>
-                                    </div>
+                                    <div id="clienteDetalhes" class="d-flex flex-column justify-content-stretch w-100 mt-3"></div>
                                 </div>
                             </div>
                         </div>
@@ -224,10 +203,10 @@
     <script src="{{ asset('js/components/Contrato.js') }}"></script>
     <script src="{{ asset('js/components/Icon.js') }}"></script>
     <script src="{{ asset('js/components/List.js') }}"></script>
+    <script src="{{ asset('js/components/Recebimento.js') }}"></script>
     <script src="{{ asset('js/html/elements.js') }}"></script>
     <script src="{{ asset('js/models/Cliente.js') }}"></script>
     <script src="{{ asset('js/models/ClienteContrato.js') }}"></script>
-    <script src="{{ asset('js/models/Recebimento.js') }}"></script>
     <script src="{{ asset('js/pages/Caixa/components.js') }}"></script>
     <script src="{{ asset('js/pages/Caixa/main.js') }}"></script>
 @endsection
