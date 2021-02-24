@@ -17,6 +17,14 @@
  * CORES
  */
 
+.ixs-white {
+    background-color: white !important;
+}
+.ixs-hover-white:hover {
+    transition:         150ms;
+    background-color:   white !important;
+}
+
 .ixs-light {
     background-color: var(--bs-white) !important;
 }
@@ -96,6 +104,13 @@ img[class*="avatar"] {
     overflow:       hidden !important;
     white-space:    nowrap !important;
     text-overflow:  ellipsis !important;
+}
+
+.override-scroll-y {
+    overflow-x:         hidden;
+    overflow-y:         auto;
+    -ms-overflow-style: none;
+    scrollbar-width:    none;
 }
 
 

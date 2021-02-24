@@ -48,7 +48,7 @@ class CreController extends Controller
 
 
 
-    public function fnPorClienteContrato(Request $request)
+    public function fnPorContrato(Request $request)
     {
         if ($this->csrfBroken($request)) {
             return $this->unauthorized();
@@ -77,7 +77,7 @@ class CreController extends Controller
 
 
 
-    public function status(Request $request, Recebimento $recebimento)
+    public function fnPorStatus(Request $request, Recebimento $recebimento)
     {
         if ($this->csrfBroken($request)) {
             return $this->unauthorized();

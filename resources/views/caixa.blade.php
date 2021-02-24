@@ -124,9 +124,9 @@
                         </div>
                     </div>
 
-                    <div class="d-flex flex-column justify-content-center align-items-center w-100">
+                    <div class="d-flex flex-column align-items-center w-100 text-uppercase">
 
-                        <div class="d-flex justify-content-center text-uppercase" style="margin-top: 4%;">
+                        <div class="d-flex justify-content-center">
                             <div class="d-flex flex-column justify-content-center align-items-center lh-1">
                                 <span class="fas fa-user fa-2x mt-1 mb-1 text-primary"></span>
                                 <p id="razao" class="h3 ui-text-primary"></p>
@@ -172,17 +172,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-flex justify-content-center mt-5">
+                                    <div class="d-flex justify-content-center mt-3">
                                         <div id="clienteContratos" style="width: 28rem;">
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-column align-items-stretch mt-5 ps-4 pe-4 w-100">
+                                    <div class="d-flex flex-column align-items-stretch mt-3 ps-4 pe-4 w-100">
                                         <ul id="fnTabs" class="nav nav-tabs" role="tablist">
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="vencidos-tab" data-bs-toggle="tab" data-bs-target="#vencidos-tab-pane" type="button" role="tab" aria-controls="vencidos-tab-pane" aria-selected="false">VENCIDOS</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="emabertos-tab" data-bs-toggle="tab" data-bs-target="#emabertos-tab-pane" type="button" role="tab" aria-controls="emabertos-tab-pane" aria-selected="false">À VENCER</button>
+                                                <button class="nav-link" id="emabertos-tab" data-bs-toggle="tab" data-bs-target="#emabertos-tab-pane" type="button" role="tab" aria-controls="emabertos-tab-pane" aria-selected="false">EM ABERTO</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="recebidos-tab" data-bs-toggle="tab" data-bs-target="#recebidos-tab-pane" type="button" role="tab" aria-controls="recebidos-tab-pane" aria-selected="false">RECEBIDOS</button>
@@ -192,10 +192,10 @@
                                             </li>
                                         </ul>
                                         <div class="tab-content w-100" id="fnTabContent">
-                                            <div class="tab-pane fade override-hidden" id="vencidos-tab-pane" role="tabpanel" aria-labelledby="vencidos-tab"></div>
-                                            <div class="tab-pane fade override-hidden" id="emabertos-tab-pane" role="tabpanel" aria-labelledby="emabertos-tab"></div>
-                                            <div class="tab-pane fade override-hidden" id="recebidos-tab-pane" role="tabpanel" aria-labelledby="recebidos-tab"></div>
-                                            <div class="tab-pane fade override-hidden" id="cancelados-tab-pane" role="tabpanel" aria-labelledby="cancelados-tab"></div>
+                                            <div id="vencidos-tab-pane" class="tab-pane fade overflow-hidden" role="tabpanel" aria-labelledby="vencidos-tab" style="max-height: 15.5em;"></div>
+                                            <div id="emabertos-tab-pane" class="tab-pane fade overflow-hidden" role="tabpanel" aria-labelledby="emabertos-tab" style="max-height: 15.5em;"></div>
+                                            <div id="recebidos-tab-pane" class="tab-pane fade overflow-hidden" role="tabpanel" aria-labelledby="recebidos-tab" style="max-height: 15.5em;"></div>
+                                            <div id="cancelados-tab-pane" class="tab-pane fade overflow-hidden" role="tabpanel" aria-labelledby="cancelados-tab" style="max-height: 15.5em;"></div>
                                         </div>
                                     </div>
                                 </div>

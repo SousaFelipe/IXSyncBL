@@ -5,7 +5,8 @@ $(document).ready(function () {
 
     $('div[id="clienteModal"]').on("hidden.bs.modal", function () {
         $('input[id="search"]').focus()
-        $('div[id="clienteCartoes"]').html('')
+        limparClienteContratos()
+        limparFnsListados()
     })
 
     $('input[id="search"]').on("input", function() {
@@ -56,19 +57,34 @@ function listarClientes(request) {
 
 
 
+function exibirListaDeClientes(clientes) {
+    limparClientesListados()
+
+    if (clientes.length > 0) {
+        for (let i = 0; i < clientes.length; i++) {
+            $(`div[id="contentListaDeClientes"]`).append(components.cliente().item(clientes[i]))
+        }
+    }
+    else {
+        limparClientesListados()
+    }
+}
+
+
+
 function buscarCliente(id) {
     alternarModalLoading(true)
 
     new Request('clientes/buscar/{cliente}')
         .csrf()
-        .done(response => exibirModalCliente(response))
+        .done(response => exibirCliente(response))
         .fail(error => console.log(error))
         .get({ cliente: id })
 }
 
 
 
-function exibirModalCliente(clienteModel) {
+function exibirCliente(clienteModel) {
 
     let cliente = new Cliente(clienteModel)
 
@@ -88,7 +104,7 @@ function exibirModalCliente(clienteModel) {
 
 
 function listarContratos(clienteId) {
-    limparDetalhesCliente()
+    limparClienteContratos()
 
     new Request('cre/contratos/listar/{cliente}')
         .csrf()
@@ -102,15 +118,83 @@ function exibirContratos(contratos) {
 
     let ativos = contratos.ativos
     let desativados = contratos.desativados
-
-    let items = []
+    
+    let itensAtivos = []
+    let itensDesativados = []
 
     if (ativos.length > 0) {
-        ativos.forEach(contrato => items.push( new List('li').item(components.contrato().item(contrato))))
-        $('div[id="clienteContratos"]').append(new Group().id('contratos-tabs').props('list-group list-group-flush').content(items))
+        ativos.forEach(contrato => itensAtivos.push( new List('li').item(components.contrato().item(contrato))))
     }
 
-    listarFinanceiro(ativos[0].id)
+    if (desativados.length > 0) {
+        desativados.forEach(contrato => itensDesativados.push( new List('li').item(components.contrato().item(contrato))))
+    }
+    
+    $('div[id="clienteContratos"]').append(
+        new Group().id('contratos-tabs').props('list-group').content(itensAtivos.concat(itensDesativados))
+    )
+
+    let contratoId = ativos[0] ? ativos[0].id : desativados[0] ? desativados[0].id : false
+    
+    if (contratoId) {
+        listarFinanceiro(contratoId)
+    }
+}
+
+
+
+function listarFinanceiro(contratoId) {
+
+    new Request('cre/recebimentos/listar/{contrato}')
+        .csrf()
+        .done(response => exibirFinanceiro(response))
+        .get({ contrato: contratoId })
+}
+
+
+
+function exibirFinanceiro(recebimentos) {
+
+    let vencidos = recebimentos.vencidos
+    let emAbertos = recebimentos.em_aberto
+    let recebidos = recebimentos.recebidos
+    let cancelados = recebimentos.cancelados
+
+    let afV = alternaFinanceiro(vencidos, 'vencidos')
+    let afE = alternaFinanceiro(emAbertos, 'emabertos')
+    let afR = alternaFinanceiro(recebidos, 'recebidos')
+    let afC = alternaFinanceiro(cancelados, 'cancelados')
+
+    if /**/ (afV)
+        app.activeTabPane('vencidos')
+    else if (afE)
+        app.activeTabPane('emabertos')
+    else if (afR)
+        app.activeTabPane('recebidos')
+    else if (afC)
+        app.activeTabPane('cancelados')
+
+    alternarModalLoading(false)
+}
+
+
+
+function alternaFinanceiro(recebimentos, element) {
+
+    const tabPane = $(`div[id="${ element }-tab-pane"]`)
+    const tabButton = $(`button[id="${ element }-tab"]`)
+
+    tabPane.html(``)
+    tabButton.removeClass('disabled')
+
+    if (recebimentos.length > 0) {
+        tabPane.append(components.recebimento().header())
+        tabPane.append(financeiro(recebimentos))
+        return true
+    }
+    
+    tabButton.addClass('disabled')
+    return false
 }
 
 
@@ -118,28 +202,11 @@ function exibirContratos(contratos) {
 function financeiro(recebimentos) {
     let items = []
 
-    if (recebimentos.length > 0) {
-        recebimentos.forEach(recebimento =>
-            items.push(new List().props('d-flex flex-column align-items-stretch').item(components.recebimento().item(recebimento)))
-        )
-    }
+    recebimentos.forEach(recebimento =>
+        items.push(new List().props('d-flex flex-column align-items-stretch').item(components.recebimento().item(recebimento)))
+    )
 
     return new Group().props(`d-flex flex-column align-items-stretch w-100`).content(items)
-}
-
-
-
-function exibirListaDeClientes(clientes) {
-    limparClientesListados()
-
-    if (clientes.length > 0) {
-        for (let i = 0; i < clientes.length; i++) {
-            $(`div[id="contentListaDeClientes"]`).append(components.cliente().item(clientes[i]))
-        }
-    }
-    else {
-        limparClientesListados()
-    }
 }
 
 
@@ -150,8 +217,17 @@ function limparClientesListados() {
 
 
 
-function limparDetalhesCliente() {
-    $(`div[id="clienteDetalhes"]`).html(``)
+function limparClienteContratos() {
+    $(`div[id="clienteContratos"]`).html(``)
+}
+
+
+
+function limparFnsListados() {
+    $(`div[id="cancelados-tab-pane"]`).html('')
+    $(`div[id="recebidos-tab-pane"]`).html('')
+    $(`div[id="emabertos-tab-pane"]`).html('')
+    $(`div[id="vencidos-tab-pane"]`).html('')
 }
 
 

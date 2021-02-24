@@ -22,9 +22,9 @@
 
 .ixs-form-group:focus-within {
     background-color:   white;
-    -webkit-box-shadow: 1px 1px 0.3rem 0 rgba(0,0,0,0.175);
-    -moz-box-shadow:    1px 1px 0.3rem 0 rgba(0,0,0,0.175);
-    box-shadow:         1px 1px 0.3rem 0 rgba(0,0,0,0.175);
+    -webkit-box-shadow: 1px 1px 0.357rem 0 rgba(0,0,0,0.175);
+    -moz-box-shadow:    1px 1px 0.357rem 0 rgba(0,0,0,0.175);
+    box-shadow:         1px 1px 0.357rem 0 rgba(0,0,0,0.175);
 }
 
 .ixs-form-label {
@@ -115,10 +115,10 @@
 
 
 
-.ui-shadow {
-    -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.175);
-    -moz-box-shadow:    1px 1px 3px 0px rgba(0,0,0,0.175);
-    box-shadow:         1px 1px 3px 0px rgba(0,0,0,0.175);
+.ixs-shadow {
+    -webkit-box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.175);
+    -moz-box-shadow:    1px 1px 4px 0px rgba(0,0,0,0.175);
+    box-shadow:         1px 1px 4px 0px rgba(0,0,0,0.175);
 }
 
 

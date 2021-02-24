@@ -30,6 +30,12 @@ const app = {
 
     submitForm: (form = 0) => {
         document.forms[form].submit()
+    },
+
+
+    activeTabPane: (element) => {
+        let trigger = new bootstrap.Tab(document.getElementById(`${ element }-tab`))
+        trigger.show()
     }
 
 }
